@@ -13,6 +13,7 @@
 
 - (void)awakeFromInsert {
   [self setValue:[NSDate date] forKey:@"startDate"];
+  [self setValue:[NSDate date] forKey:@"endDate"];
 }
 
 @end
