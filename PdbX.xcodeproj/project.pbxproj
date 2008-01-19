@@ -10,6 +10,29 @@
 		5A01BD3E0D400F5E00883964 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BD3A0D400F5E00883964 /* MainMenu.xib */; };
 		5A01BD3F0D400F5E00883964 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BD3C0D400F5E00883964 /* MyDocument.xib */; };
 		5A01BD470D40130D00883964 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BD460D40130D00883964 /* Task.m */; };
+		5A01BDA40D411A2700883964 /* DBSourceSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDA30D411A2700883964 /* DBSourceSplitView.m */; };
+		5A01BDA80D411A6E00883964 /* KFSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDA70D411A6E00883964 /* KFSplitView.m */; };
+		5A01BDB30D411B2500883964 /* DBSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDB20D411B2500883964 /* DBSourceView.m */; };
+		5A01BDBA0D411B3C00883964 /* SourceListImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDB50D411B3C00883964 /* SourceListImageCell.m */; };
+		5A01BDBB0D411B3C00883964 /* SourceListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDB70D411B3C00883964 /* SourceListTableView.m */; };
+		5A01BDBC0D411B3C00883964 /* SourceListTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDB90D411B3C00883964 /* SourceListTextCell.m */; };
+		5A01BDC60D411B5D00883964 /* Add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDBD0D411B5D00883964 /* Add.tiff */; };
+		5A01BDC70D411B5D00883964 /* Add_Disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDBE0D411B5D00883964 /* Add_Disabled.tiff */; };
+		5A01BDC80D411B5D00883964 /* Add_Pressed.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDBF0D411B5D00883964 /* Add_Pressed.tiff */; };
+		5A01BDC90D411B5D00883964 /* DBListSplitViewBar.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDC00D411B5D00883964 /* DBListSplitViewBar.tiff */; };
+		5A01BDCA0D411B5D00883964 /* DBListSplitViewDimple.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDC10D411B5D00883964 /* DBListSplitViewDimple.tiff */; };
+		5A01BDCB0D411B5D00883964 /* Delete.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDC20D411B5D00883964 /* Delete.tiff */; };
+		5A01BDCC0D411B5D00883964 /* Delete_Disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDC30D411B5D00883964 /* Delete_Disabled.tiff */; };
+		5A01BDCD0D411B5D00883964 /* Delete_Pressed.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDC40D411B5D00883964 /* Delete_Pressed.tiff */; };
+		5A01BDCE0D411B5D00883964 /* Folder.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDC50D411B5D00883964 /* Folder.tiff */; };
+		5A01BDD50D411BC800883964 /* CTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDAC0D411AFC00883964 /* CTGradient.m */; };
+		5A01BDD60D411BCA00883964 /* DBBottomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDAE0D411AFC00883964 /* DBBottomButton.m */; };
+		5A01BDD70D411BCB00883964 /* DBListSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDB00D411AFC00883964 /* DBListSplitView.m */; };
+		5A01BDE00D411C0700883964 /* MyWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDDF0D411C0700883964 /* MyWindowController.m */; };
+		5A01BDE60D411C2A00883964 /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDE30D411C2A00883964 /* Email.m */; };
+		5A01BDE70D411C2A00883964 /* Mailbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDE50D411C2A00883964 /* Mailbox.m */; };
+		5A01BDFB0D412CB800883964 /* BottomBar.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDF90D412CB800883964 /* BottomBar.tiff */; };
+		5A01BDFC0D412CB800883964 /* DBSourceSplitViewThumb.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDFA0D412CB800883964 /* DBSourceSplitViewThumb.tiff */; };
 		775BDEF1067A8BF0009058FE /* MyDocument.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 775BDEF0067A8BF0009058FE /* MyDocument.xcdatamodel */; };
 		775DFF38067A968500C5B868 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
@@ -32,6 +55,41 @@
 		5A01BD3D0D400F5E00883964 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MyDocument.xib; sourceTree = "<group>"; };
 		5A01BD450D40130D00883964 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
 		5A01BD460D40130D00883964 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		5A01BDA20D411A2700883964 /* DBSourceSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBSourceSplitView.h; sourceTree = "<group>"; };
+		5A01BDA30D411A2700883964 /* DBSourceSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBSourceSplitView.m; sourceTree = "<group>"; };
+		5A01BDA60D411A6E00883964 /* KFSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KFSplitView.h; sourceTree = "<group>"; };
+		5A01BDA70D411A6E00883964 /* KFSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KFSplitView.m; sourceTree = "<group>"; };
+		5A01BDAB0D411AFC00883964 /* CTGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTGradient.h; sourceTree = "<group>"; };
+		5A01BDAC0D411AFC00883964 /* CTGradient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTGradient.m; sourceTree = "<group>"; };
+		5A01BDAD0D411AFC00883964 /* DBBottomButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBBottomButton.h; sourceTree = "<group>"; };
+		5A01BDAE0D411AFC00883964 /* DBBottomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBBottomButton.m; sourceTree = "<group>"; };
+		5A01BDAF0D411AFC00883964 /* DBListSplitView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBListSplitView.h; sourceTree = "<group>"; };
+		5A01BDB00D411AFC00883964 /* DBListSplitView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBListSplitView.m; sourceTree = "<group>"; };
+		5A01BDB10D411B2500883964 /* DBSourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBSourceView.h; sourceTree = "<group>"; };
+		5A01BDB20D411B2500883964 /* DBSourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBSourceView.m; sourceTree = "<group>"; };
+		5A01BDB40D411B3C00883964 /* SourceListImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceListImageCell.h; sourceTree = "<group>"; };
+		5A01BDB50D411B3C00883964 /* SourceListImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListImageCell.m; sourceTree = "<group>"; };
+		5A01BDB60D411B3C00883964 /* SourceListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceListTableView.h; sourceTree = "<group>"; };
+		5A01BDB70D411B3C00883964 /* SourceListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListTableView.m; sourceTree = "<group>"; };
+		5A01BDB80D411B3C00883964 /* SourceListTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceListTextCell.h; sourceTree = "<group>"; };
+		5A01BDB90D411B3C00883964 /* SourceListTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListTextCell.m; sourceTree = "<group>"; };
+		5A01BDBD0D411B5D00883964 /* Add.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Add.tiff; sourceTree = "<group>"; };
+		5A01BDBE0D411B5D00883964 /* Add_Disabled.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Add_Disabled.tiff; sourceTree = "<group>"; };
+		5A01BDBF0D411B5D00883964 /* Add_Pressed.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Add_Pressed.tiff; sourceTree = "<group>"; };
+		5A01BDC00D411B5D00883964 /* DBListSplitViewBar.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DBListSplitViewBar.tiff; sourceTree = "<group>"; };
+		5A01BDC10D411B5D00883964 /* DBListSplitViewDimple.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DBListSplitViewDimple.tiff; sourceTree = "<group>"; };
+		5A01BDC20D411B5D00883964 /* Delete.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Delete.tiff; sourceTree = "<group>"; };
+		5A01BDC30D411B5D00883964 /* Delete_Disabled.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Delete_Disabled.tiff; sourceTree = "<group>"; };
+		5A01BDC40D411B5D00883964 /* Delete_Pressed.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Delete_Pressed.tiff; sourceTree = "<group>"; };
+		5A01BDC50D411B5D00883964 /* Folder.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Folder.tiff; sourceTree = "<group>"; };
+		5A01BDDE0D411C0700883964 /* MyWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWindowController.h; sourceTree = "<group>"; };
+		5A01BDDF0D411C0700883964 /* MyWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWindowController.m; sourceTree = "<group>"; };
+		5A01BDE20D411C2A00883964 /* Email.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Email.h; sourceTree = "<group>"; };
+		5A01BDE30D411C2A00883964 /* Email.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Email.m; sourceTree = "<group>"; };
+		5A01BDE40D411C2A00883964 /* Mailbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mailbox.h; sourceTree = "<group>"; };
+		5A01BDE50D411C2A00883964 /* Mailbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mailbox.m; sourceTree = "<group>"; };
+		5A01BDF90D412CB800883964 /* BottomBar.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = BottomBar.tiff; sourceTree = "<group>"; };
+		5A01BDFA0D412CB800883964 /* DBSourceSplitViewThumb.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DBSourceSplitViewThumb.tiff; sourceTree = "<group>"; };
 		775BDEF0067A8BF0009058FE /* MyDocument.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = MyDocument.xcdatamodel; sourceTree = "<group>"; };
 		7788DA0506752A1600599AAD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -82,6 +140,7 @@
 				E1B74B1A0667B4A90069E3BA /* Models */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				5A01BE0A0D41F60F00883964 /* SplitView */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
@@ -92,6 +151,12 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5A01BDE20D411C2A00883964 /* Email.h */,
+				5A01BDE30D411C2A00883964 /* Email.m */,
+				5A01BDE40D411C2A00883964 /* Mailbox.h */,
+				5A01BDE50D411C2A00883964 /* Mailbox.m */,
+				5A01BDDE0D411C0700883964 /* MyWindowController.h */,
+				5A01BDDF0D411C0700883964 /* MyWindowController.m */,
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
 				5A01BD450D40130D00883964 /* Task.h */,
@@ -112,6 +177,17 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5A01BDF90D412CB800883964 /* BottomBar.tiff */,
+				5A01BDFA0D412CB800883964 /* DBSourceSplitViewThumb.tiff */,
+				5A01BDBD0D411B5D00883964 /* Add.tiff */,
+				5A01BDBE0D411B5D00883964 /* Add_Disabled.tiff */,
+				5A01BDBF0D411B5D00883964 /* Add_Pressed.tiff */,
+				5A01BDC00D411B5D00883964 /* DBListSplitViewBar.tiff */,
+				5A01BDC10D411B5D00883964 /* DBListSplitViewDimple.tiff */,
+				5A01BDC20D411B5D00883964 /* Delete.tiff */,
+				5A01BDC30D411B5D00883964 /* Delete_Disabled.tiff */,
+				5A01BDC40D411B5D00883964 /* Delete_Pressed.tiff */,
+				5A01BDC50D411B5D00883964 /* Folder.tiff */,
 				5A01BD3A0D400F5E00883964 /* MainMenu.xib */,
 				5A01BD3C0D400F5E00883964 /* MyDocument.xib */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
@@ -128,6 +204,31 @@
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5A01BE0A0D41F60F00883964 /* SplitView */ = {
+			isa = PBXGroup;
+			children = (
+				5A01BDAB0D411AFC00883964 /* CTGradient.h */,
+				5A01BDAC0D411AFC00883964 /* CTGradient.m */,
+				5A01BDAD0D411AFC00883964 /* DBBottomButton.h */,
+				5A01BDAE0D411AFC00883964 /* DBBottomButton.m */,
+				5A01BDAF0D411AFC00883964 /* DBListSplitView.h */,
+				5A01BDB00D411AFC00883964 /* DBListSplitView.m */,
+				5A01BDA20D411A2700883964 /* DBSourceSplitView.h */,
+				5A01BDA30D411A2700883964 /* DBSourceSplitView.m */,
+				5A01BDB10D411B2500883964 /* DBSourceView.h */,
+				5A01BDB20D411B2500883964 /* DBSourceView.m */,
+				5A01BDA60D411A6E00883964 /* KFSplitView.h */,
+				5A01BDA70D411A6E00883964 /* KFSplitView.m */,
+				5A01BDB40D411B3C00883964 /* SourceListImageCell.h */,
+				5A01BDB50D411B3C00883964 /* SourceListImageCell.m */,
+				5A01BDB60D411B3C00883964 /* SourceListTableView.h */,
+				5A01BDB70D411B3C00883964 /* SourceListTableView.m */,
+				5A01BDB80D411B3C00883964 /* SourceListTextCell.h */,
+				5A01BDB90D411B3C00883964 /* SourceListTextCell.m */,
+			);
+			name = SplitView;
 			sourceTree = "<group>";
 		};
 		E1B74B1A0667B4A90069E3BA /* Models */ = {
@@ -185,6 +286,17 @@
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				5A01BD3E0D400F5E00883964 /* MainMenu.xib in Resources */,
 				5A01BD3F0D400F5E00883964 /* MyDocument.xib in Resources */,
+				5A01BDC60D411B5D00883964 /* Add.tiff in Resources */,
+				5A01BDC70D411B5D00883964 /* Add_Disabled.tiff in Resources */,
+				5A01BDC80D411B5D00883964 /* Add_Pressed.tiff in Resources */,
+				5A01BDC90D411B5D00883964 /* DBListSplitViewBar.tiff in Resources */,
+				5A01BDCA0D411B5D00883964 /* DBListSplitViewDimple.tiff in Resources */,
+				5A01BDCB0D411B5D00883964 /* Delete.tiff in Resources */,
+				5A01BDCC0D411B5D00883964 /* Delete_Disabled.tiff in Resources */,
+				5A01BDCD0D411B5D00883964 /* Delete_Pressed.tiff in Resources */,
+				5A01BDCE0D411B5D00883964 /* Folder.tiff in Resources */,
+				5A01BDFB0D412CB800883964 /* BottomBar.tiff in Resources */,
+				5A01BDFC0D412CB800883964 /* DBSourceSplitViewThumb.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +311,18 @@
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				775BDEF1067A8BF0009058FE /* MyDocument.xcdatamodel in Sources */,
 				5A01BD470D40130D00883964 /* Task.m in Sources */,
+				5A01BDA40D411A2700883964 /* DBSourceSplitView.m in Sources */,
+				5A01BDA80D411A6E00883964 /* KFSplitView.m in Sources */,
+				5A01BDB30D411B2500883964 /* DBSourceView.m in Sources */,
+				5A01BDBA0D411B3C00883964 /* SourceListImageCell.m in Sources */,
+				5A01BDBB0D411B3C00883964 /* SourceListTableView.m in Sources */,
+				5A01BDBC0D411B3C00883964 /* SourceListTextCell.m in Sources */,
+				5A01BDD50D411BC800883964 /* CTGradient.m in Sources */,
+				5A01BDD60D411BCA00883964 /* DBBottomButton.m in Sources */,
+				5A01BDD70D411BCB00883964 /* DBListSplitView.m in Sources */,
+				5A01BDE00D411C0700883964 /* MyWindowController.m in Sources */,
+				5A01BDE60D411C2A00883964 /* Email.m in Sources */,
+				5A01BDE70D411C2A00883964 /* Mailbox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
