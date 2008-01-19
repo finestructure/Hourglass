@@ -18,14 +18,11 @@
 @interface MyWindowController : NSWindowController {
   
   // Main Window
-	IBOutlet DBSourceSplitView *sourceSplitView;
-	IBOutlet DBListSplitView *listSplitView;
 	IBOutlet NSView *sourceViewPlaceholder;
 	IBOutlet NSView *contentViewPlaceholder;
 	
   // Source View
 	IBOutlet NSView *sourceView;
-	IBOutlet SourceListTableView *mailboxesTableView;
 
   // Content View
 	IBOutlet NSView *contentView;
