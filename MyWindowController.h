@@ -15,32 +15,21 @@
 #import "SourceListTableView.h"
 
 
-@interface MyWindowController : NSWindowController
-{
-		// Main Window
+@interface MyWindowController : NSWindowController {
+  
+  // Main Window
 	IBOutlet DBSourceSplitView *sourceSplitView;
 	IBOutlet DBListSplitView *listSplitView;
 	IBOutlet NSView *sourceViewPlaceholder;
 	IBOutlet NSView *contentViewPlaceholder;
 	
-		// Source View
+  // Source View
 	IBOutlet NSView *sourceView;
 	IBOutlet SourceListTableView *mailboxesTableView;
 
-		// Content View
+  // Content View
 	IBOutlet NSView *contentView;
-    
-	IBOutlet NSArrayController *mailboxesArrayController;
-	
-		// Instance Variables
-	NSMutableArray *_mailboxes;
+
 }
-
-- (IBAction)addMailboxAction:(id)sender;
-
-	// Accessor Methods
-- (NSMutableArray *)mailboxes;
-- (void)setMailboxes:(NSArray *)newMailboxes;
-
 
 @end
