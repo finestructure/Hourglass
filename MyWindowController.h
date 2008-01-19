@@ -17,15 +17,10 @@
 
 @interface MyWindowController : NSWindowController {
   
-  // Main Window
-	IBOutlet NSView *sourceViewPlaceholder;
-	IBOutlet NSView *contentViewPlaceholder;
-	
-  // Source View
 	IBOutlet NSView *sourceView;
-
-  // Content View
+	IBOutlet NSView *sourceViewPlaceholder;
 	IBOutlet NSView *contentView;
+	IBOutlet NSView *contentViewPlaceholder;
 
 }
 
