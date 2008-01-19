@@ -28,7 +28,6 @@
 		5A01BDD50D411BC800883964 /* CTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDAC0D411AFC00883964 /* CTGradient.m */; };
 		5A01BDD60D411BCA00883964 /* DBBottomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDAE0D411AFC00883964 /* DBBottomButton.m */; };
 		5A01BDD70D411BCB00883964 /* DBListSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDB00D411AFC00883964 /* DBListSplitView.m */; };
-		5A01BDE00D411C0700883964 /* MyWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDDF0D411C0700883964 /* MyWindowController.m */; };
 		5A01BDFB0D412CB800883964 /* BottomBar.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDF90D412CB800883964 /* BottomBar.tiff */; };
 		5A01BDFC0D412CB800883964 /* DBSourceSplitViewThumb.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDFA0D412CB800883964 /* DBSourceSplitViewThumb.tiff */; };
 		775BDEF1067A8BF0009058FE /* MyDocument.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 775BDEF0067A8BF0009058FE /* MyDocument.xcdatamodel */; };
@@ -80,8 +79,6 @@
 		5A01BDC30D411B5D00883964 /* Delete_Disabled.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Delete_Disabled.tiff; sourceTree = "<group>"; };
 		5A01BDC40D411B5D00883964 /* Delete_Pressed.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Delete_Pressed.tiff; sourceTree = "<group>"; };
 		5A01BDC50D411B5D00883964 /* Folder.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Folder.tiff; sourceTree = "<group>"; };
-		5A01BDDE0D411C0700883964 /* MyWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWindowController.h; sourceTree = "<group>"; };
-		5A01BDDF0D411C0700883964 /* MyWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWindowController.m; sourceTree = "<group>"; };
 		5A01BDF90D412CB800883964 /* BottomBar.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = BottomBar.tiff; sourceTree = "<group>"; };
 		5A01BDFA0D412CB800883964 /* DBSourceSplitViewThumb.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DBSourceSplitViewThumb.tiff; sourceTree = "<group>"; };
 		775BDEF0067A8BF0009058FE /* MyDocument.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = MyDocument.xcdatamodel; sourceTree = "<group>"; };
@@ -145,8 +142,6 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				5A01BDDE0D411C0700883964 /* MyWindowController.h */,
-				5A01BDDF0D411C0700883964 /* MyWindowController.m */,
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
 				5A01BD450D40130D00883964 /* Task.h */,
@@ -310,7 +305,6 @@
 				5A01BDD50D411BC800883964 /* CTGradient.m in Sources */,
 				5A01BDD60D411BCA00883964 /* DBBottomButton.m in Sources */,
 				5A01BDD70D411BCB00883964 /* DBListSplitView.m in Sources */,
-				5A01BDE00D411C0700883964 /* MyWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

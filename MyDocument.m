@@ -26,8 +26,19 @@
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)windowController 
 {
-    [super windowControllerDidLoadNib:windowController];
-    // user interface preparation code
+  [super windowControllerDidLoadNib:windowController];
+
+  // Place the source list view in the left panel.
+	[sourceView setFrameSize:[sourceViewPlaceholder frame].size];
+	[sourceViewPlaceholder addSubview:sourceView];
+  
+  // Place the content view in the right panel.
+	[contentView setFrameSize:[contentViewPlaceholder frame].size];
+	[contentViewPlaceholder addSubview:contentView];  
+}
+
+- (void)newTask:(id)sender {
+  [taskController add:sender];
 }
 
 @end

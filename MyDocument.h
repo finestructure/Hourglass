@@ -9,6 +9,13 @@
 #import <Cocoa/Cocoa.h>
 
 @interface MyDocument : NSPersistentDocument {
+  
+	IBOutlet NSView *sourceView;
+	IBOutlet NSView *sourceViewPlaceholder;
+	IBOutlet NSView *contentView;
+	IBOutlet NSView *contentViewPlaceholder;
+  IBOutlet NSArrayController* taskController;
+  
 }
 
 @end
