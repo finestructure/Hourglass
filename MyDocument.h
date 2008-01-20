@@ -14,7 +14,8 @@
 	IBOutlet NSView *sourceViewPlaceholder;
 	IBOutlet NSView *contentView;
 	IBOutlet NSView *contentViewPlaceholder;
-  IBOutlet NSArrayController* taskController;
+  IBOutlet NSArrayController* tasksController;
+  IBOutlet NSArrayController* groupsController;
   
 }
 
