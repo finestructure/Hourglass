@@ -19,4 +19,7 @@
   
 }
 
+- (void)ensure:(id)groups
+  containsName:(NSString*)groupName;
+
 @end

@@ -11,6 +11,8 @@
 
 @implementation MyDocument
 
+// ----------------------------------------------------------------------
+
 - (id)init 
 {
     self = [super init];
@@ -20,10 +22,14 @@
     return self;
 }
 
+// ----------------------------------------------------------------------
+
 - (NSString *)windowNibName 
 {
     return @"MyDocument";
 }
+
+// ----------------------------------------------------------------------
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)windowController 
 {
@@ -38,42 +44,49 @@
 	[contentViewPlaceholder addSubview:contentView];
   
   // Set up the default groups
-  
-  NSManagedObjectContext *moc = [self managedObjectContext];
-  NSEntityDescription *entityDescription = [NSEntityDescription
-                                            entityForName:@"Group" inManagedObjectContext:moc];
-  NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-  [request setEntity:entityDescription];
-  
-  NSError *error = nil;
-  NSArray *groups = [moc executeFetchRequest:request error:&error];
-  if (groups == nil) {
-    NSLog(@"no groups (nil)");
-    return;
+  {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSEntityDescription *entityDescription = [NSEntityDescription 
+                                              entityForName:@"Group" 
+                                              inManagedObjectContext:moc];
+    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+    [request setEntity:entityDescription];
+    
+    NSError *error = nil;
+    NSArray *groups = [moc executeFetchRequest:request error:&error];
+    [self ensure:groups containsName:@"Current Month"];
+    [self ensure:groups containsName:@"Current Week"];
+    [self ensure:groups containsName:@"Last Month"];
   }
+}
+
+// ----------------------------------------------------------------------
+
+- (void)ensure:(id)groups
+  containsName:(NSString*)groupName {
   
-  //NSArray* groups = [groupsController arrangedObjects];
-  NSLog(@"existing groups: %d", [groups count]);
-  for (id g in groups) {
-    NSLog(@"\tname: %@", [g name]);
-  }
-  NSPredicate* p = [NSPredicate predicateWithFormat:@"name like \"Current Month\""];
-  NSLog(@"filtering groups");
+  if (groups == nil) return;
+  
+  NSPredicate* p = [NSPredicate 
+                    predicateWithFormat:@"name like %@", groupName];
   NSArray* g1 = [groups filteredArrayUsingPredicate:p];
-  NSLog(@"g1 count: %d", [g1 count]);
   if ([g1 count] == 0) {
-    NSLog(@"nothing found");
-    id g = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext: [self managedObjectContext]];
-    [g setValue:@"Current Month" forKey:@"name"];
+    id g = [NSEntityDescription 
+            insertNewObjectForEntityForName:@"Group"
+            inManagedObjectContext:[self managedObjectContext]];
+    [g setValue:groupName forKey:@"name"];
     [g setValue:[[NSImage imageNamed:@"Folder"] TIFFRepresentation]
          forKey:@"icon"];
-    NSLog(@"adding object");
     [groupsController addObject:g];
   }
 }
 
+// ----------------------------------------------------------------------
+
 - (void)newTask:(id)sender {
   [tasksController add:sender];
 }
+
+// ----------------------------------------------------------------------
 
 @end
