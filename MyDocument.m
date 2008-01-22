@@ -7,6 +7,7 @@
 //
 
 #import "MyDocument.h"
+#import "DefaultGroup.h"
 #import "Group.h"
 
 @implementation MyDocument
@@ -44,7 +45,12 @@
 	[contentViewPlaceholder addSubview:contentView];
   
   // Set up the default groups
-  {
+  DefaultGroup* g = [[DefaultGroup alloc] init];
+  g.name = @"Current Month";
+  g.icon = [[NSImage imageNamed:@"Folder"] TIFFRepresentation];
+  [groupsController addObject:g];
+  
+  if (NO) {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSEntityDescription *entityDescription = [NSEntityDescription 
                                               entityForName:@"Group" 
@@ -84,6 +90,32 @@
 
 - (void)newTask:(id)sender {
   [tasksController add:sender];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)setStartToNow:(id)sender {
+  id t = [tasksController selection];
+  [t setValue:[NSDate date] forKey:@"startDate"];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)setEndToNow:(id)sender {
+  id t = [tasksController selection];
+  [t setValue:[NSDate date] forKey:@"endDate"];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)showCustomerWindow:(id)sender {
+  [customerWindow makeKeyAndOrderFront:sender];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)showProjectWindow:(id)sender {
+  [projectWindow makeKeyAndOrderFront:sender];
 }
 
 // ----------------------------------------------------------------------

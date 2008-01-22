@@ -16,10 +16,18 @@
 	IBOutlet NSView *contentViewPlaceholder;
   IBOutlet NSArrayController* tasksController;
   IBOutlet NSArrayController* groupsController;
+  IBOutlet NSWindow* customerWindow;
+  IBOutlet NSWindow* projectWindow;
   
 }
 
 - (void)ensure:(id)groups
   containsName:(NSString*)groupName;
+
+// IB actions
+
+- (void)newTask:(id)sender;
+- (void)setStartToNow:(id)sender;
+- (void)setEndToNow:(id)sender;
 
 @end
