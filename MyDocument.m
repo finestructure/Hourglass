@@ -77,7 +77,6 @@
     [g setValue:groupName forKey:@"name"];
     [g setValue:[[NSImage imageNamed:@"Folder"] TIFFRepresentation]
          forKey:@"icon"];
-    [groupsController addObject:g];
   }
 }
 
