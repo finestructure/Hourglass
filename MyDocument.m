@@ -45,12 +45,7 @@
 	[contentViewPlaceholder addSubview:contentView];
   
   // Set up the default groups
-  DefaultGroup* g = [[DefaultGroup alloc] init];
-  g.name = @"Current Month";
-  g.icon = [[NSImage imageNamed:@"Folder"] TIFFRepresentation];
-  [groupsController addObject:g];
-  
-  if (NO) {
+  {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSEntityDescription *entityDescription = [NSEntityDescription 
                                               entityForName:@"Group" 
@@ -63,6 +58,12 @@
     [self ensure:groups containsName:@"Current Month"];
     [self ensure:groups containsName:@"Current Week"];
     [self ensure:groups containsName:@"Last Month"];
+
+    // clear the undo manager and change count for the document such that
+    // untitled documents start with zero unsaved changes
+    [moc processPendingChanges];
+    [[moc undoManager] removeAllActions];
+    [self updateChangeCount:NSChangeCleared];
   }
 }
 
