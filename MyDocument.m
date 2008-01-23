@@ -58,6 +58,10 @@
     [self ensure:groups containsName:@"Current Week"];
     [self ensure:groups containsName:@"Last Month"];
     [self ensure:groups containsName:@"All"];
+    
+    NSSortDescriptor* sd = [[NSSortDescriptor alloc] initWithKey:@"sortIndex"
+                                                       ascending:YES];
+    [groupsController setSortDescriptors:[NSArray arrayWithObject:sd]];
 
     // clear the undo manager and change count for the document such that
     // untitled documents start with zero unsaved changes
@@ -71,6 +75,7 @@
 
 - (void)ensure:(id)groups
   containsName:(NSString*)groupName {
+  static int sortIndex = 0;
   
   if (groups == nil) return;
   
@@ -84,6 +89,8 @@
     [g setValue:groupName forKey:@"name"];
     [g setValue:[[NSImage imageNamed:@"Folder"] TIFFRepresentation]
          forKey:@"icon"];
+    [g setValue:[NSNumber numberWithInt:sortIndex] forKey:@"sortIndex"];
+    ++sortIndex;
   }
 }
 
