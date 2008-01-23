@@ -7,7 +7,6 @@
 //
 
 #import "MyDocument.h"
-#import "DefaultGroup.h"
 #import "Group.h"
 
 @implementation MyDocument
@@ -58,6 +57,7 @@
     [self ensure:groups containsName:@"Current Month"];
     [self ensure:groups containsName:@"Current Week"];
     [self ensure:groups containsName:@"Last Month"];
+    [self ensure:groups containsName:@"All"];
 
     // clear the undo manager and change count for the document such that
     // untitled documents start with zero unsaved changes
