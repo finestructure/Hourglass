@@ -13,4 +13,6 @@
 
 }
 
+- (NSDate*)dateWithDate:(NSDate*)date andTime:(NSDate*)time;
+
 @end

@@ -18,6 +18,7 @@
   IBOutlet NSArrayController* groupsController;
   IBOutlet NSWindow* customerWindow;
   IBOutlet NSWindow* projectWindow;
+  IBOutlet NSTableView* contentList;
   
 }
 
