@@ -11,11 +11,21 @@
 
 @implementation Task
 
+// ----------------------------------------------------------------------
+
++ (void)initialize {
+  [self setKeys:[NSArray arrayWithObjects:@"startDate",nil]triggerChangeNotificationsForDependentKey:@"startTime"];
+  [self setKeys:[NSArray arrayWithObjects:@"endDate",nil]triggerChangeNotificationsForDependentKey:@"endTime"];
+}
+
+// ----------------------------------------------------------------------
+
 - (void)awakeFromInsert {
   [self setValue:[NSDate date] forKey:@"startDate"];
   [self setValue:[NSDate date] forKey:@"endDate"];
 }
 
+// ----------------------------------------------------------------------
 
 - (NSDate*)dateWithDate:(NSDate*)date andTime:(NSDate*)time {
   NSCalendar* cal = [NSCalendar currentCalendar];
@@ -35,6 +45,7 @@
   return [cal dateFromComponents:dateComponents];
 }
 
+// ----------------------------------------------------------------------
 
 - (void)setStartTime:(NSDate*)time {
   NSCalendarDate* currentDate = [self valueForKey:@"startDate"];
@@ -42,11 +53,13 @@
           forKey:@"startDate"];
 }
 
+// ----------------------------------------------------------------------
 
 - (NSDate*)startTime {
   return [self valueForKey:@"startDate"];
 }
 
+// ----------------------------------------------------------------------
 
 - (void)setEndTime:(NSDate*)time {
   NSCalendarDate* currentDate = [self valueForKey:@"endDate"];
@@ -54,22 +67,12 @@
           forKey:@"endDate"];
 }
 
+// ----------------------------------------------------------------------
 
 - (NSDate*)endTime {
   return [self valueForKey:@"endDate"];
 }
 
-/*
-- (void)setStartDate:(NSDate*)date {
-  [super setValue:date forKey:@"startDate"];
-  //[self setPrimitiveValue:date forKey:@"startTime"];
-}
-
-
-- (void)setEndDate:(NSDate*)date {
-  [super setValue:date forKey:@"endDate"];
-  //[self setPrimitiveValue:date forKey:@"endTime"];
-}
-*/
+// ----------------------------------------------------------------------
 
 @end
