@@ -70,6 +70,14 @@
     [[moc undoManager] removeAllActions];
     [self updateChangeCount:NSChangeCleared];
   }
+
+  // set up selection observing
+  {
+    [groupsController addObserver:self 
+                       forKeyPath:@"selection" 
+                          options:NSKeyValueObservingOptionNew
+                          context:NULL];
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -125,6 +133,72 @@
 
 - (void)showProjectWindow:(id)sender {
   [projectWindow makeKeyAndOrderFront:sender];
+}
+
+// ----------------------------------------------------------------------
+
+- (NSDate*)dateWithFirstOfMonthFor:(NSDate*)date {
+  NSCalendar* cal = [NSCalendar currentCalendar];
+  unsigned dateFlags = ( NSYearCalendarUnit 
+                        | NSMonthCalendarUnit 
+                        | NSDayCalendarUnit );
+  NSDateComponents* dateComponents = [cal components:dateFlags
+                                            fromDate:date];
+  [dateComponents setDay:1];
+  return [cal dateFromComponents:dateComponents];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object 
+                        change:(NSDictionary *)change 
+                       context:(void *)context {
+  if ([keyPath isEqualTo:@"selection"]) {
+    NSString* groupName = [[groupsController selection] valueForKey:@"name"];
+    // Defaul 'nil' is removing the filer and displaying all tasks
+    NSPredicate* filter = nil;
+    if ([groupName isEqualTo:@"Current Month"]) {
+      NSDate* firstOfThisMonth = [self dateWithFirstOfMonthFor:[NSDate date]];
+      NSCalendar* cal = [NSCalendar currentCalendar];
+      NSDateComponents* oneMonth = [[[NSDateComponents alloc] init] autorelease];
+      [oneMonth setMonth:1];
+      NSDate* firstOfNextMonth = [cal dateByAddingComponents:oneMonth 
+                                                      toDate:firstOfThisMonth 
+                                                     options:0];
+      filter = [NSPredicate 
+                predicateWithFormat:@"%@ <= startDate and startDate < %@",
+                firstOfThisMonth, firstOfNextMonth];
+    } else if ([groupName isEqualTo:@"Current Week"]) {
+      NSCalendar* cal = [NSCalendar currentCalendar];
+      [cal setFirstWeekday:2]; // Monday
+      unsigned unitFlags = NSYearCalendarUnit | NSWeekCalendarUnit;
+      NSDate* now = [NSDate date];
+      NSDateComponents* comps = [cal components:unitFlags fromDate:now];
+      NSDate* startOfThisWeek = [cal dateFromComponents:comps];
+      NSDateComponents* oneWeek = [[[NSDateComponents alloc] init] autorelease];
+      [oneWeek setWeek:1];
+      NSDate* startOfNextWeek = [cal dateByAddingComponents:oneWeek
+                                                     toDate:startOfThisWeek
+                                                    options:0];
+      filter = [NSPredicate 
+                predicateWithFormat:@"%@ <= startDate and startDate < %@",
+                startOfThisWeek, startOfNextWeek];
+    } else if ([groupName isEqualTo:@"Last Month"]) {
+      NSDate* firstOfThisMonth = [self dateWithFirstOfMonthFor:[NSDate date]];
+      NSCalendar* cal = [NSCalendar currentCalendar];
+      NSDateComponents* 
+      minusOneMonth = [[[NSDateComponents alloc] init] autorelease];
+      [minusOneMonth setMonth:-1];
+      NSDate* firstOfLastMonth = [cal dateByAddingComponents:minusOneMonth 
+                                                      toDate:firstOfThisMonth 
+                                                     options:0];
+      filter = [NSPredicate 
+                predicateWithFormat:@"%@ <= startDate and startDate < %@",
+                firstOfLastMonth, firstOfThisMonth];
+    }
+    [tasksController setFilterPredicate:filter];
+  }
 }
 
 // ----------------------------------------------------------------------

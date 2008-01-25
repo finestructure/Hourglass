@@ -14,25 +14,7 @@
 - (void)awakeFromInsert {
   [self setValue:[NSDate date] forKey:@"startDate"];
   [self setValue:[NSDate date] forKey:@"endDate"];
-  /*
-  [self addObserver:self 
-         forKeyPath:@"startDate" 
-            options:NSKeyValueObservingOptionNew
-            context:NULL];
-   */
 }
-
-/*
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object 
-                        change:(NSDictionary *)change 
-                       context:(void *)context {
-  if ([keyPath isEqualTo:@"startDate"]) {
-    NSLog(@"observing: %@", keyPath);
-    [super setValue:[self valueForKey:@"startDate"] forKey:@"startTime"];
-  }
-}
-*/
 
 
 - (NSDate*)dateWithDate:(NSDate*)date andTime:(NSDate*)time {
