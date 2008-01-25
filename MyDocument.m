@@ -78,6 +78,14 @@
                           options:NSKeyValueObservingOptionNew
                           context:NULL];
   }
+  
+  // set up content view sorting
+  {
+    NSSortDescriptor* 
+    sortDesc = [[[NSSortDescriptor alloc] initWithKey:@"startDate"
+                                            ascending:NO] autorelease];
+    [tasksController setSortDescriptors:[NSArray arrayWithObject:sortDesc]];
+  }
 }
 
 // ----------------------------------------------------------------------
