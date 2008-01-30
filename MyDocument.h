@@ -12,13 +12,13 @@
   
 	IBOutlet NSView *sourceView;
 	IBOutlet NSView *sourceViewPlaceholder;
-	IBOutlet NSView *contentView;
 	IBOutlet NSView *contentViewPlaceholder;
   IBOutlet NSArrayController* tasksController;
   IBOutlet NSArrayController* groupsController;
-  IBOutlet NSWindow* customerWindow;
-  IBOutlet NSWindow* projectWindow;
   IBOutlet NSTableView* contentList;
+	IBOutlet NSView* taskView;
+  IBOutlet NSView* customerView;
+  IBOutlet NSView* projectView;
   
 }
 
@@ -30,5 +30,8 @@
 - (void)newTask:(id)sender;
 - (void)setStartToNow:(id)sender;
 - (void)setEndToNow:(id)sender;
+- (void)showTaskView;
+- (void)showCustomerView;
+- (void)showProjectView;
 
 @end

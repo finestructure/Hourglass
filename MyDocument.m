@@ -40,9 +40,7 @@
 	[sourceView setFrameSize:[sourceViewPlaceholder frame].size];
 	[sourceViewPlaceholder addSubview:sourceView];
   
-  // Place the content view in the right panel.
-	[contentView setFrameSize:[contentViewPlaceholder frame].size];
-	[contentViewPlaceholder addSubview:contentView];
+  [self showTaskView];
   
   // Set up the default groups
   {
@@ -59,6 +57,8 @@
     [self ensure:groups containsName:@"Current Week"];
     [self ensure:groups containsName:@"Last Month"];
     [self ensure:groups containsName:@"All"];
+    [self ensure:groups containsName:@"Customers"];
+    [self ensure:groups containsName:@"Projects"];
     
     NSSortDescriptor* sd = [[NSSortDescriptor alloc] initWithKey:@"sortIndex"
                                                        ascending:YES];
@@ -133,18 +133,6 @@
 
 // ----------------------------------------------------------------------
 
-- (void)showCustomerWindow:(id)sender {
-  [customerWindow makeKeyAndOrderFront:sender];
-}
-
-// ----------------------------------------------------------------------
-
-- (void)showProjectWindow:(id)sender {
-  [projectWindow makeKeyAndOrderFront:sender];
-}
-
-// ----------------------------------------------------------------------
-
 - (NSDate*)dateWithFirstOfMonthFor:(NSDate*)date {
   NSCalendar* cal = [NSCalendar currentCalendar];
   unsigned dateFlags = ( NSYearCalendarUnit 
@@ -166,7 +154,9 @@
     NSString* groupName = [[groupsController selection] valueForKey:@"name"];
     // Defaul 'nil' is removing the filer and displaying all tasks
     NSPredicate* filter = nil;
-    if ([groupName isEqualTo:@"Current Month"]) {
+    if ([groupName isEqualTo:@"All"]) {
+      [self showTaskView];
+    } else if ([groupName isEqualTo:@"Current Month"]) {
       NSDate* firstOfThisMonth = [self dateWithFirstOfMonthFor:[NSDate date]];
       NSCalendar* cal = [NSCalendar currentCalendar];
       NSDateComponents* oneMonth = [[[NSDateComponents alloc] init] autorelease];
@@ -177,6 +167,7 @@
       filter = [NSPredicate 
                 predicateWithFormat:@"%@ <= startDate and startDate < %@",
                 firstOfThisMonth, firstOfNextMonth];
+      [self showTaskView];
     } else if ([groupName isEqualTo:@"Current Week"]) {
       NSCalendar* cal = [NSCalendar currentCalendar];
       [cal setFirstWeekday:2]; // Monday
@@ -192,6 +183,7 @@
       filter = [NSPredicate 
                 predicateWithFormat:@"%@ <= startDate and startDate < %@",
                 startOfThisWeek, startOfNextWeek];
+      [self showTaskView];
     } else if ([groupName isEqualTo:@"Last Month"]) {
       NSDate* firstOfThisMonth = [self dateWithFirstOfMonthFor:[NSDate date]];
       NSCalendar* cal = [NSCalendar currentCalendar];
@@ -204,9 +196,41 @@
       filter = [NSPredicate 
                 predicateWithFormat:@"%@ <= startDate and startDate < %@",
                 firstOfLastMonth, firstOfThisMonth];
+      [self showTaskView];
+    } else if ([groupName isEqualTo:@"Customers"]) {
+      [self showCustomerView];
+    } else if ([groupName isEqualTo:@"Projects"]) {
+      [self showProjectView];
     }
     [tasksController setFilterPredicate:filter];
   }
+}
+
+// ----------------------------------------------------------------------
+
+- (void)showTaskView {
+  [customerView removeFromSuperview];
+  [projectView removeFromSuperview];
+  [taskView setFrameSize:[contentViewPlaceholder frame].size];
+  [contentViewPlaceholder addSubview:taskView];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)showCustomerView {
+  [taskView removeFromSuperview];
+  [projectView removeFromSuperview];
+  [customerView setFrameSize:[contentViewPlaceholder frame].size];
+  [contentViewPlaceholder addSubview:customerView];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)showProjectView {
+  [taskView removeFromSuperview];
+  [customerView removeFromSuperview];
+  [projectView setFrameSize:[contentViewPlaceholder frame].size];
+  [contentViewPlaceholder addSubview:projectView];
 }
 
 // ----------------------------------------------------------------------
