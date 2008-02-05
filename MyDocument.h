@@ -33,5 +33,6 @@
 - (void)showTaskView;
 - (void)showCustomerView;
 - (void)showProjectView;
+- (void)applyGroupFilter;
 
 @end
