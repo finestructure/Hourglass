@@ -23,7 +23,8 @@
 }
 
 - (void)ensure:(id)groups
-  containsName:(NSString*)groupName;
+  containsName:(NSString*)groupName
+   withImage:(NSString*)imageName;
 
 // IB actions
 

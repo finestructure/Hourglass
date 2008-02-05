@@ -52,12 +52,12 @@
     
     NSError *error = nil;
     NSArray *groups = [moc executeFetchRequest:request error:&error];
-    [self ensure:groups containsName:@"Current Month"];
-    [self ensure:groups containsName:@"Current Week"];
-    [self ensure:groups containsName:@"Last Month"];
-    [self ensure:groups containsName:@"All"];
-    [self ensure:groups containsName:@"Customers"];
-    [self ensure:groups containsName:@"Projects"];
+    [self ensure:groups containsName:@"Current Month" withImage:@"Task"];
+    [self ensure:groups containsName:@"Current Week" withImage:@"Task"];
+    [self ensure:groups containsName:@"Last Month" withImage:@"Task"];
+    [self ensure:groups containsName:@"All" withImage:@"Task"];
+    [self ensure:groups containsName:@"Customers" withImage:@"Customer"];
+    [self ensure:groups containsName:@"Projects" withImage:@"Folder"];
     
     NSSortDescriptor* sd = [[NSSortDescriptor alloc] initWithKey:@"sortIndex"
                                                        ascending:YES];
@@ -96,7 +96,8 @@
 // ----------------------------------------------------------------------
 
 - (void)ensure:(id)groups
-  containsName:(NSString*)groupName {
+  containsName:(NSString*)groupName
+   withImage:(NSString*)imageName {
   static int sortIndex = 0;
   
   if (groups == nil) return;
@@ -109,7 +110,7 @@
             insertNewObjectForEntityForName:@"Group"
             inManagedObjectContext:[self managedObjectContext]];
     [g setValue:groupName forKey:@"name"];
-    [g setValue:[[NSImage imageNamed:@"Folder"] TIFFRepresentation]
+    [g setValue:[[NSImage imageNamed:imageName] TIFFRepresentation]
          forKey:@"icon"];
     [g setValue:[NSNumber numberWithInt:sortIndex] forKey:@"sortIndex"];
     ++sortIndex;
