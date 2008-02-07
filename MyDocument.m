@@ -120,7 +120,12 @@
 // ----------------------------------------------------------------------
 
 - (void)newTask:(id)sender {
-  [tasksController add:sender];
+  id t = [NSEntityDescription 
+          insertNewObjectForEntityForName:@"Task"
+          inManagedObjectContext:[self managedObjectContext]];
+  //[tasksController add:sender];
+  [tasksController addObject:t];
+  [tasksController rearrangeObjects];
 }
 
 // ----------------------------------------------------------------------
