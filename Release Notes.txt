@@ -1,0 +1,11 @@
+1.1 -- 2008-02-20
+
+- Exporting to tab-separated text format.
+
+1.0.1 -- 2008-02-18
+
+- Re-sorting tasks after new task creation.
+
+1.0 -- 2008-02-06
+
+- Initial release.

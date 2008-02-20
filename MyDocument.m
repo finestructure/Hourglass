@@ -31,8 +31,7 @@
 
 // ----------------------------------------------------------------------
 
-- (void)windowControllerDidLoadNib:(NSWindowController *)windowController 
-{
+- (void)windowControllerDidLoadNib:(NSWindowController *)windowController {
   [super windowControllerDidLoadNib:windowController];
 
   // Place the source list view in the left panel.
@@ -268,6 +267,71 @@
   [customerView removeFromSuperview];
   [projectView setFrameSize:[contentViewPlaceholder frame].size];
   [contentViewPlaceholder addSubview:projectView];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)export:(id)sender {
+  NSString *documentsDirectory = nil;
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                       NSUserDomainMask,
+                                                       YES);
+  if ([paths count] > 0) {
+    documentsDirectory = [paths objectAtIndex:0];
+  }
+  
+  NSSavePanel* sp = [NSSavePanel savePanel];
+  [sp setRequiredFileType:@"txt"];
+  [sp setCanSelectHiddenExtension:YES];
+  
+  NSString* currentDoc = [[self fileURL] path];
+  NSString* newDoc = [[[currentDoc lastPathComponent] 
+                      stringByDeletingPathExtension]
+                      stringByAppendingPathExtension:@"txt"];
+  
+  [sp beginSheetForDirectory:nil
+                        file:newDoc
+              modalForWindow:mainWindow
+               modalDelegate:self
+              didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:)
+                 contextInfo:nil];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)savePanelDidEnd:(NSSavePanel *)sheet
+             returnCode:(int)returnCode
+            contextInfo:(void*)contextInfo {
+  if ( returnCode == NSOKButton ) {
+    // prepare the formatter
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"y-MM-dd HH:mm"];
+    
+    // sort ascending by start date
+    NSArray* tasks = [tasksController arrangedObjects];
+    NSSortDescriptor* 
+    sortDesc = [[NSSortDescriptor alloc] initWithKey:@"startDate"
+                                             ascending:YES];
+    tasks = [tasks sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDesc]];
+    
+    NSMutableString* output = [NSMutableString string];
+    for (Task* t in tasks) {
+      NSArray* parts = [NSArray arrayWithObjects:
+                        [formatter stringFromDate:[t startDate]],
+                        [formatter stringFromDate:[t endDate]],
+                        [t length],
+                        [[t project] name],
+                        [t desc],
+                        nil ];
+      [output appendString:[parts componentsJoinedByString:@"\t"]];
+      [output appendString:@"\n"];
+    }
+    NSError* error;
+    [output writeToFile:[sheet filename] 
+             atomically:YES
+               encoding:NSUTF8StringEncoding
+                  error:&error];
+  }
 }
 
 // ----------------------------------------------------------------------

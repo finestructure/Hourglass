@@ -19,6 +19,7 @@
 	IBOutlet NSView* taskView;
   IBOutlet NSView* customerView;
   IBOutlet NSView* projectView;
+  IBOutlet NSWindow* mainWindow;
   
 }
 
@@ -35,5 +36,6 @@
 - (void)showCustomerView;
 - (void)showProjectView;
 - (void)applyGroupFilter;
+- (void)export:(id)sender;
 
 @end

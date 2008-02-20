@@ -8,11 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface Task : NSManagedObject {
 
 }
 
 - (NSDate*)dateWithDate:(NSDate*)date andTime:(NSDate*)time;
+
+
+@property(readonly) NSDate* startDate;
+@property(readonly) NSDate* endDate;
+@property(readonly) NSDate* startTime;
+@property(readonly) NSDate* endTime;
+@property(readonly) NSString* desc;
+@property(readonly) NSNumber* length;
+@property(readonly) id project;
+
 
 @end

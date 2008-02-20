@@ -11,11 +11,19 @@
 
 @implementation Task
 
+@dynamic startDate;
+@dynamic endDate;
+@dynamic startTime;
+@dynamic endTime;
+@dynamic desc;
+@dynamic length;
+@dynamic project;
+
 // ----------------------------------------------------------------------
 
 + (void)initialize {
-  [self setKeys:[NSArray arrayWithObjects:@"startDate",nil]triggerChangeNotificationsForDependentKey:@"startTime"];
-  [self setKeys:[NSArray arrayWithObjects:@"endDate",nil]triggerChangeNotificationsForDependentKey:@"endTime"];
+  [self setKeys:[NSArray arrayWithObjects:@"startDate",nil] triggerChangeNotificationsForDependentKey:@"startTime"];
+  [self setKeys:[NSArray arrayWithObjects:@"endDate",nil] triggerChangeNotificationsForDependentKey:@"endTime"];
 }
 
 // ----------------------------------------------------------------------
