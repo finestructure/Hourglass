@@ -17,8 +17,6 @@
 
 @property(readonly) NSDate* startDate;
 @property(readonly) NSDate* endDate;
-@property(readonly) NSDate* startTime;
-@property(readonly) NSDate* endTime;
 @property(readonly) NSString* desc;
 @property(readonly) NSNumber* length;
 @property(readonly) id project;

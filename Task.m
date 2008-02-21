@@ -13,8 +13,8 @@
 
 @dynamic startDate;
 @dynamic endDate;
-@dynamic startTime;
-@dynamic endTime;
+//@dynamic startTime;
+//@dynamic endTime;
 @dynamic desc;
 @dynamic length;
 @dynamic project;
