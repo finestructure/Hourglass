@@ -1,6 +1,6 @@
 #! /bin/sh
 
-appname=PdbX
+appname=Hourglass
 
 if [[ -z $VERSION ]]; then
   VERSION=$(./getVersion.py)

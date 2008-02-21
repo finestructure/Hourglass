@@ -1,8 +1,9 @@
 #! /usr/bin/env python
 
+import glob
 from Foundation import *
 
-plistFile = 'build/Release/PdbX.app/Contents/Info.plist'
+plistFile = glob.glob('build/Release/*.app/Contents/Info.plist')[0]
 key = 'CFBundleShortVersionString'
 
 d = NSMutableDictionary.dictionaryWithContentsOfFile_( plistFile )
