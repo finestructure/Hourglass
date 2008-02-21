@@ -1,3 +1,7 @@
+1.1.1 -- 2008-02-xx
+
+- Added toolbar with search field.
+
 1.1 -- 2008-02-20
 
 - Exporting to tab-separated text format.
