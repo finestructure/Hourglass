@@ -9,7 +9,7 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>pdbx</string>
+				<string>hglass</string>
 			</array>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
@@ -78,7 +78,7 @@
 	<key>CFBundleIconFile</key>
 	<string>application_icon.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.PdbXApp</string>
+	<string>de.abstracture.Hourglass</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

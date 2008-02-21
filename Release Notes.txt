@@ -1,6 +1,8 @@
 1.1.1 -- 2008-02-xx
 
 - Added toolbar with search field.
+- Renamed application to 'Hourglass'
+- Set default sizes and positions to more sensible values.
 
 1.1 -- 2008-02-20
 
