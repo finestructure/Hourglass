@@ -76,7 +76,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string>application_icon.icns</string>
+	<string>hourglass.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>de.abstracture.Hourglass</string>
 	<key>CFBundleInfoDictionaryVersion</key>
