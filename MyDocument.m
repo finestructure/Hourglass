@@ -94,6 +94,16 @@
 
 // ----------------------------------------------------------------------
 
+- (NSString *)displayName {
+#ifdef DEBUG_BUILD
+  return [NSString stringWithFormat:@"%@ (Debug)", [super displayName]];
+#else
+  return [super displayName];
+#endif
+}
+
+// ----------------------------------------------------------------------
+
 - (void)ensure:(id)groups
   containsName:(NSString*)groupName
    withImage:(NSString*)imageName {
