@@ -20,12 +20,19 @@
   IBOutlet NSView* customerView;
   IBOutlet NSView* projectView;
   IBOutlet NSWindow* mainWindow;
+  IBOutlet NSView* fileTypeAccessory;
+  IBOutlet NSPopUpButton* fileTypeSelector;
+  NSSavePanel* savePanel;
   
 }
 
 - (void)ensure:(id)groups
   containsName:(NSString*)groupName
    withImage:(NSString*)imageName;
+
+- (void)exportToText:(NSString*)filename;
+- (void)exportToXML:(NSString*)filename;
+
 
 // IB actions
 
@@ -37,5 +44,6 @@
 - (void)showProjectView;
 - (void)applyGroupFilter;
 - (void)export:(id)sender;
+- (void)fileTypeSelection:(id)sender;
 
 @end

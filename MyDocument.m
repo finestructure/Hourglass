@@ -90,6 +90,12 @@
                                             ascending:NO] autorelease];
     [tasksController setSortDescriptors:[NSArray arrayWithObject:sortDesc]];
   }
+  
+  // set up file type selector
+  {
+    [fileTypeSelector addItemWithTitle:@"txt"];
+    [fileTypeSelector addItemWithTitle:@"xml"];
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -291,8 +297,10 @@
   }
   
   NSSavePanel* sp = [NSSavePanel savePanel];
-  [sp setRequiredFileType:@"txt"];
+  [sp setRequiredFileType:[fileTypeSelector titleOfSelectedItem]];
   [sp setCanSelectHiddenExtension:YES];
+  [sp setAccessoryView:fileTypeAccessory];
+  savePanel = sp;
   
   NSString* currentDoc = [[self fileURL] path];
   NSString* newDoc = [[[currentDoc lastPathComponent] 
@@ -313,35 +321,87 @@
              returnCode:(int)returnCode
             contextInfo:(void*)contextInfo {
   if ( returnCode == NSOKButton ) {
-    // prepare the formatter
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"y-MM-dd HH:mm"];
-    
-    // sort ascending by start date
-    NSArray* tasks = [tasksController arrangedObjects];
-    NSSortDescriptor* 
-    sortDesc = [[NSSortDescriptor alloc] initWithKey:@"startDate"
-                                             ascending:YES];
-    tasks = [tasks sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDesc]];
-    
-    NSMutableString* output = [NSMutableString string];
-    for (Task* t in tasks) {
-      NSArray* parts = [NSArray arrayWithObjects:
-                        [formatter stringFromDate:[t startDate]],
-                        [formatter stringFromDate:[t endDate]],
-                        [t length],
-                        [[t project] name],
-                        [t desc],
-                        nil ];
-      [output appendString:[parts componentsJoinedByString:@"\t"]];
-      [output appendString:@"\n"];
+    if ([[fileTypeSelector titleOfSelectedItem] isEqual:@"txt"]) {
+      [self exportToText:[sheet filename]];
+    } else if ([[fileTypeSelector titleOfSelectedItem] isEqual:@"xml"]) {
+      [self exportToXML:[sheet filename]];
     }
-    NSError* error;
-    [output writeToFile:[sheet filename] 
-             atomically:YES
-               encoding:NSUTF8StringEncoding
-                  error:&error];
   }
+}
+
+// ----------------------------------------------------------------------
+
+- (void)exportToText:(NSString*)filename {
+  // prepare the formatter
+  NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+  [formatter setDateFormat:@"y-MM-dd HH:mm"];
+  
+  // sort ascending by start date
+  NSArray* tasks = [tasksController arrangedObjects];
+  NSSortDescriptor* 
+  sortDesc = [[NSSortDescriptor alloc] initWithKey:@"startDate"
+                                         ascending:YES];
+  tasks = [tasks sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDesc]];
+  
+  NSMutableString* output = [NSMutableString string];
+  for (Task* t in tasks) {
+    NSArray* parts = [NSArray arrayWithObjects:
+                      [formatter stringFromDate:[t startDate]],
+                      [formatter stringFromDate:[t endDate]],
+                      [t length],
+                      [[t project] name],
+                      [t desc],
+                      nil ];
+    [output appendString:[parts componentsJoinedByString:@"\t"]];
+    [output appendString:@"\n"];
+  }
+  NSError* error;
+  [output writeToFile:filename
+           atomically:YES
+             encoding:NSUTF8StringEncoding
+                error:&error];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)exportToXML:(NSString*)filename {
+  // prepare the formatter
+  NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+  [formatter setDateFormat:@"y-MM-dd HH:mm"];
+  
+  // sort ascending by start date
+  NSArray* tasks = [tasksController arrangedObjects];
+  NSSortDescriptor* 
+  sortDesc = [[NSSortDescriptor alloc] initWithKey:@"startDate"
+                                         ascending:YES];
+  tasks = [tasks sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDesc]];
+  
+  NSMutableString* output = [NSMutableString string];
+  [output appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"];
+  [output appendString:@"<tasks>\n"];
+  
+  for (Task* t in tasks) {
+    [output appendString:@"\t<task>\n"];
+    [output appendFormat:@"\t\t<start>%@</start>\n", [formatter stringFromDate:[t startDate]]];
+    [output appendFormat:@"\t\t<end>%@</end>\n", [formatter stringFromDate:[t endDate]]];
+    [output appendFormat:@"\t\t<length>%@</length>\n", [t length]];
+    [output appendFormat:@"\t\t<project>%@</project>\n", [[t project] name]];
+    [output appendFormat:@"\t\t<description>%@</description>\n", [t desc]];
+    [output appendString:@"\t<task>\n"];
+  }
+  [output appendString:@"</tasks>\n"];
+
+  NSError* error;
+  [output writeToFile:filename
+           atomically:YES
+             encoding:NSUTF8StringEncoding
+                error:&error];
+}
+  
+// ----------------------------------------------------------------------
+
+- (void)fileTypeSelection:(id)sender {
+  [savePanel setRequiredFileType:[fileTypeSelector titleOfSelectedItem]];
 }
 
 // ----------------------------------------------------------------------
