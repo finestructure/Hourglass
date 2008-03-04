@@ -16,11 +16,11 @@
 // ----------------------------------------------------------------------
 
 - (id)init {
-    self = [super init];
-    if (self != nil) {
-        // initialization code
-    }
-    return self;
+  self = [super init];
+  if (self != nil) {
+    // initialization code
+  }
+  return self;
 }
 
 // ----------------------------------------------------------------------
@@ -138,9 +138,8 @@
   id t = [NSEntityDescription 
           insertNewObjectForEntityForName:@"Task"
           inManagedObjectContext:[self managedObjectContext]];
-  //[tasksController add:sender];
   [tasksController addObject:t];
-  [tasksController rearrangeObjects];
+  [self applyGroupFilter];
 }
 
 // ----------------------------------------------------------------------
