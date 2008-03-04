@@ -6,7 +6,23 @@
 	objectVersion = 44;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		53CCA09D0D7C2C2500940CC3 /* Make Release */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 53CCA0A00D7C2C4300940CC3 /* Build configuration list for PBXAggregateTarget "Make Release" */;
+			buildPhases = (
+				53CCA09C0D7C2C2500940CC3 /* ShellScript */,
+			);
+			dependencies = (
+				53CCA0A70D7C2D0600940CC3 /* PBXTargetDependency */,
+			);
+			name = "Make Release";
+			productName = Release;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
+		53CCA0D70D7C644F00940CC3 /* Release Notes.html in Resources */ = {isa = PBXBuildFile; fileRef = 53CCA0D60D7C644F00940CC3 /* Release Notes.html */; };
 		5A01BD3E0D400F5E00883964 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BD3A0D400F5E00883964 /* MainMenu.xib */; };
 		5A01BD3F0D400F5E00883964 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BD3C0D400F5E00883964 /* MyDocument.xib */; };
 		5A01BD470D40130D00883964 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BD460D40130D00883964 /* Task.m */; };
@@ -30,6 +46,8 @@
 		5A01BDD70D411BCB00883964 /* DBListSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A01BDB00D411AFC00883964 /* DBListSplitView.m */; };
 		5A01BDFB0D412CB800883964 /* BottomBar.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDF90D412CB800883964 /* BottomBar.tiff */; };
 		5A01BDFC0D412CB800883964 /* DBSourceSplitViewThumb.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A01BDFA0D412CB800883964 /* DBSourceSplitViewThumb.tiff */; };
+		5A16ECBD0D7AABB80091735E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16ECBC0D7AABB80091735E /* Sparkle.framework */; };
+		5A16ECF10D7AB21E0091735E /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5A16ECBC0D7AABB80091735E /* Sparkle.framework */; };
 		5A29FF980D6EECF200CC796B /* hourglass.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5A29FF970D6EECF200CC796B /* hourglass.icns */; };
 		5A2BCE9B0D58AA53003F8EC7 /* Customer.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A2BCE990D58AA53003F8EC7 /* Customer.tiff */; };
 		5A2BCE9C0D58AA53003F8EC7 /* Task.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5A2BCE9A0D58AA53003F8EC7 /* Task.tiff */; };
@@ -44,6 +62,29 @@
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		53CCA0A60D7C2D0600940CC3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D15AC270486D014006FF6A4 /* Hourglass */;
+			remoteInfo = Hourglass;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5A16ECEF0D7AB1D50091735E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5A16ECF10D7AB21E0091735E /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -54,7 +95,7 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32DBCF750370BD2300C91783 /* Hourglass_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hourglass_Prefix.pch; sourceTree = "<group>"; };
-		536C99070D6C8A81002B51C9 /* Release Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Release Notes.txt"; sourceTree = "<group>"; };
+		53CCA0D60D7C644F00940CC3 /* Release Notes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Release Notes.html"; sourceTree = "<group>"; };
 		5A01BD3B0D400F5E00883964 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		5A01BD3D0D400F5E00883964 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MyDocument.xib; sourceTree = "<group>"; };
 		5A01BD450D40130D00883964 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
@@ -88,6 +129,7 @@
 		5A01BDC50D411B5D00883964 /* Folder.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Folder.tiff; sourceTree = "<group>"; };
 		5A01BDF90D412CB800883964 /* BottomBar.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = BottomBar.tiff; sourceTree = "<group>"; };
 		5A01BDFA0D412CB800883964 /* DBSourceSplitViewThumb.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DBSourceSplitViewThumb.tiff; sourceTree = "<group>"; };
+		5A16ECBC0D7AABB80091735E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		5A29FF970D6EECF200CC796B /* hourglass.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = hourglass.icns; sourceTree = "<group>"; };
 		5A2BCE990D58AA53003F8EC7 /* Customer.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Customer.tiff; sourceTree = "<group>"; };
 		5A2BCE9A0D58AA53003F8EC7 /* Task.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Task.tiff; sourceTree = "<group>"; };
@@ -109,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				775DFF38067A968500C5B868 /* Cocoa.framework in Frameworks */,
+				5A16ECBD0D7AABB80091735E /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +161,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A16ECBC0D7AABB80091735E /* Sparkle.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -184,8 +228,8 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				53CCA0D60D7C644F00940CC3 /* Release Notes.html */,
 				5A29FF970D6EECF200CC796B /* hourglass.icns */,
-				536C99070D6C8A81002B51C9 /* Release Notes.txt */,
 				5A2BCE990D58AA53003F8EC7 /* Customer.tiff */,
 				5A2BCE9A0D58AA53003F8EC7 /* Task.tiff */,
 				5A01BDF90D412CB800883964 /* BottomBar.tiff */,
@@ -261,6 +305,7 @@
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 				536C98190D69CA9C002B51C9 /* ShellScript */,
+				5A16ECEF0D7AB1D50091735E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -285,6 +330,7 @@
 			projectRoot = "";
 			targets = (
 				8D15AC270486D014006FF6A4 /* Hourglass */,
+				53CCA09D0D7C2C2500940CC3 /* Make Release */,
 			);
 		};
 /* End PBXProject section */
@@ -312,6 +358,7 @@
 				5A2BCE9B0D58AA53003F8EC7 /* Customer.tiff in Resources */,
 				5A2BCE9C0D58AA53003F8EC7 /* Task.tiff in Resources */,
 				5A29FF980D6EECF200CC796B /* hourglass.icns in Resources */,
+				53CCA0D70D7C644F00940CC3 /* Release Notes.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +377,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/usr/bin/perl -w";
 			shellScript = "# Xcode auto-versioning script for Subversion\n# by Axel Andersson, modified by Daniel Jalkut to add\n# \"--revision HEAD\" to the svn info line, which allows\n# the latest revision to always be used.\n\nuse strict;\n\ndie \"$0: Must be run from Xcode\" unless $ENV{\"BUILT_PRODUCTS_DIR\"};\n\n# Get the current subversion revision number and use it to set the CFBundleVersion value\nmy $REV = `/sw/bin/svnversion -n ./`;\nmy $INFO = \"$ENV{BUILT_PRODUCTS_DIR}/$ENV{WRAPPER_NAME}/Contents/Info.plist\";\n\nmy $version = $REV;\n\n# (Match the last group of digits and optional letter M/S):\n\n# ugly yet functional (barely) regex by Daniel Jalkut:\n#$version =~ s/([\\d]*:)(\\d+[M|S]*).*/$2/;\n\n# better yet still functional regex via Kevin \"Regex Nerd\" Ballard\n($version =~ m/\\d+[MS]*$/) && ($version = $&);\n\ndie \"$0: No Subversion revision found\" unless $version;\n\nopen(FH, \"$INFO\") or die \"$0: $INFO: $!\";\nmy $info = join(\"\", <FH>);\nclose(FH);\n\n$info =~ s/([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/$1$version$2/;\n\nopen(FH, \">$INFO\") or die \"$0: $INFO: $!\";\nprint FH $info;\nclose(FH);";
+		};
+		53CCA09C0D7C2C2500940CC3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /usr/bin/python;
+			shellScript = "import os\nfrom Foundation import *\nfrom tempfile import NamedTemporaryFile\n\nbuilddir = os.environ['BUILT_PRODUCTS_DIR']\nproject_name = os.environ['PROJECT_NAME']\nproject_dir = os.environ['PROJECT_DIR']\nappname = os.environ['PROJECT_NAME'] + '.app'\n\nscpTarget = 'sas@h775982.serverkompetenz.net:~/public_html/hourglass/'\nscpPort = '2222'\nbaseUrl = 'http://h775982.serverkompetenz.net/~sas/hourglass'\n\n\ndef getVersion():\n\tmarketingKey = 'CFBundleShortVersionString'\n\trevisionKey = 'CFBundleVersion'\n\tplistFile = builddir + '/' + appname + '/Contents/Info.plist'\n\td = NSMutableDictionary.dictionaryWithContentsOfFile_( plistFile )\n\treturn d[marketingKey], d[revisionKey]\n\n\ndef createDiskImage(volName, files):\n\tsize = 10 # MB\n\tfileSystem = 'HFS+'\n\timgName = project_dir + '/' + volName + '.dmg'\n\n\t# create dmg\n\n\tif os.path.exists(imgName):\n\t\tos.remove(imgName)\n\n\tcmd = 'hdiutil create %s -ov -fs %s -megabytes %i -volname \"%s\"' % ( imgName, fileSystem, size, volName )\n\tos.system(cmd)\n\n\tcmd = \"hdid %s | grep '/dev/disk[0-9]*' | grep \\\"%s\\\" | cut -d ' ' -f 1\" % (imgName, volName)\n\tpipe = os.popen(cmd)\n\tdevice = pipe.readlines()[0].strip()\n\n\t# copy files\n\n\tfor f in files:\n\t\tcmd = '/Developer/Tools/CpMac -r \"%s\" \"/Volumes/%s\"' % ( f, volName )\n\t\tos.system(cmd)\n\n\t# eject\n\n\tcmd = 'hdiutil eject ' + device\n\tos.system(cmd)\n\n\t# compressing\n\n\tos.rename(imgName, imgName + '.bak')\n\n\tcmd = 'hdiutil convert \"%s.bak\" -format UDCO -o %s' % (imgName, imgName)\n\tpipe = os.popen(cmd)\n\tfor line in pipe.readlines():\n\t\tif line.startswith('File size'):\n\t\t\tfinalSize = int(line.split()[2])\n\tos.remove(imgName + '.bak')\n\n\treturn finalSize, imgName\n\n\ndef createAppcast(filename, size, imgFullName, releaseNotesFile):\n\tdescription = 'Most recent changes with links to updates.'\n\trelNotes = releaseNotesFile.split('/')[-1]\n\trelNotes = relNotes.replace(' ', '%20')\n\tmVersion, rVersion = getVersion()\n\n\tdate = os.popen('date').readlines()[0].strip()\n\timgName = imgFullName.split('/')[-1]\n\n\tappcastfile = open(filename, 'w')\n\n\ts = '<?xml version=\"1.0\" encoding=\"utf-8\"?>\\n'\n\ts += '<rss version=\"2.0\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" '\n\ts += 'xmlns:sparkle=\"http://www.andymatuschak.org/xml-namespaces/sparkle\">\\n'\n\ts += '\\t<channel>\\n'\n\ts += '\\t\\t<title>%s Changelog</title>\\n' %  project_name\n\ts += '\\t\\t<link>%s/%s</link>\\n' % (baseUrl, filename)\n\ts += '\\t\\t<description>%s</description>\\n' % description\n\ts += '\\t\\t<language>en</language>\\n'\n\ts += '\\t\\t<item>\\n'\n\ts += '\\t\\t\\t<title>Version %s</title>\\n' % mVersion\n\ts += '\\t\\t\\t<description>%s/%s</description>\\n' % (baseUrl, relNotes)\n\ts += '\\t\\t\\t<pubDate>%s</pubDate>\\n' % date\n\ts += '\\t\\t\\t<enclosure sparkle:version=\"%s\" url=\"%s/%s\" length=\"%s\" ' % (rVersion, baseUrl, imgName, size)\n\ts += 'type=\"application/octet-stream\"/>\\n'\n\ts += '\\t\\t</item>\\n'\n\ts += '\\t</channel>\\n'\n\ts += '</rss>\\n'\n\t\n\tappcastfile.write(s)\n\tappcastfile.close()\n\nmVersion, rVersion = getVersion()\n\nvolName = project_name + '_' + mVersion\nfiles = [builddir + '/' + appname, project_dir + '/Release Notes.html']\n\nsize, imgName = createDiskImage(volName, files)\n\nappcastFileName = project_dir + '/appcast.xml'\nreleaseNotesFile = project_dir + '/Release Notes.html'\n\ncreateAppcast(appcastFileName, size, imgName, releaseNotesFile)\n\nprint 'Upload commands:'\nprint 'scp -P %s \"%s\" \"%s\" \"%s\" %s' % (scpPort, appcastFileName, releaseNotesFile, imgName, scpTarget)\n\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -358,6 +418,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		53CCA0A70D7C2D0600940CC3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D15AC270486D014006FF6A4 /* Hourglass */;
+			targetProxy = 53CCA0A60D7C2D0600940CC3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
@@ -400,6 +468,10 @@
 			buildSettings = {
 				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -423,6 +495,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
@@ -461,6 +537,27 @@
 			};
 			name = Release;
 		};
+		53CCA09E0D7C2C2500940CC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Release;
+			};
+			name = Debug;
+		};
+		53CCA09F0D7C2C2500940CC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = Release;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -478,6 +575,15 @@
 			buildConfigurations = (
 				26FC0AAA0875C8B900E6366F /* Debug */,
 				26FC0AAB0875C8B900E6366F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53CCA0A00D7C2C4300940CC3 /* Build configuration list for PBXAggregateTarget "Make Release" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53CCA09E0D7C2C2500940CC3 /* Debug */,
+				53CCA09F0D7C2C2500940CC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
