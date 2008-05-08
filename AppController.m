@@ -18,5 +18,24 @@
 }
 
 // ----------------------------------------------------------------------
+      
+- (BOOL)applicationOpenUntitledFile:(NSApplication *)sender {
+  NSDocumentController* docController = [NSDocumentController sharedDocumentController];
+  NSArray* recentDocs = [docController recentDocumentURLs];
+  if ([recentDocs count] > 0) {
+    NSError* error;
+    id doc = [docController 
+              openDocumentWithContentsOfURL:[recentDocs objectAtIndex:0] 
+              display:YES
+              error:&error];
+    return (doc != nil);
+  } else {
+    NSError* error;
+    id doc = [docController openUntitledDocumentAndDisplay:YES error:&error];
+    return (doc != nil);
+  }
+}
+
+// ----------------------------------------------------------------------
 
 @end
