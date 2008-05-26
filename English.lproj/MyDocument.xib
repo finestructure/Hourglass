@@ -8,8 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="66"/>
 			<integer value="67"/>
+			<integer value="85"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -458,7 +458,7 @@
 												</object>
 												<object class="_NSCornerView" key="NSCornerView" id="58640266">
 													<reference key="NSNextResponder" ref="678746327"/>
-													<int key="NSvFlags">256</int>
+													<int key="NSvFlags">-2147483392</int>
 													<string key="NSFrame">{{-26, 0}, {16, 17}}</string>
 													<reference key="NSSuperview" ref="678746327"/>
 												</object>
@@ -850,8 +850,8 @@
 									</object>
 									<object class="NSScroller" id="644063114">
 										<reference key="NSNextResponder" ref="678746327"/>
-										<int key="NSvFlags">256</int>
-										<string key="NSFrame">{{-100, -100}, {15, 176}}</string>
+										<int key="NSvFlags">-2147483392</int>
+										<string key="NSFrame">{{447, 17}, {15, 188}}</string>
 										<reference key="NSSuperview" ref="678746327"/>
 										<reference key="NSTarget" ref="678746327"/>
 										<string key="NSAction">_doScroller:</string>
@@ -887,7 +887,7 @@
 								<reference key="NSSuperview" ref="387378787"/>
 								<reference key="NSNextKeyView" ref="816275064"/>
 								<bool key="NSViewIsLayerTreeHost">YES</bool>
-								<int key="NSsFlags">2</int>
+								<int key="NSsFlags">530</int>
 								<reference key="NSVScroller" ref="644063114"/>
 								<reference key="NSHScroller" ref="360466909"/>
 								<reference key="NSContentView" ref="816275064"/>
@@ -1292,7 +1292,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 																<string>WebURLsWithTitlesPboardType</string>
 															</object>
 														</object>
-														<string key="NSFrameSize">{446, 95}</string>
+														<string key="NSFrameSize">{446, 96}</string>
 														<reference key="NSSuperview" ref="59716363"/>
 														<object class="NSTextContainer" key="NSTextContainer" id="743799204">
 															<object class="NSLayoutManager" key="NSLayoutManager">
@@ -2242,7 +2242,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 																	<reference ref="1012537518"/>
 																</object>
 															</object>
-															<object class="NSMutableDictionary" id="468265316">
+															<object class="NSMutableDictionary" id="194270340">
 																<bool key="EncodedWithXMLCoder">YES</bool>
 																<object class="NSMutableArray" key="dict.sortedKeys">
 																	<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2567,7 +2567,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 																	<reference ref="345090435"/>
 																</object>
 															</object>
-															<object class="NSMutableDictionary" id="624289608">
+															<object class="NSMutableDictionary" id="965400979">
 																<bool key="EncodedWithXMLCoder">YES</bool>
 																<object class="NSMutableArray" key="dict.sortedKeys">
 																	<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2664,7 +2664,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 																		<bool key="EncodedWithXMLCoder">YES</bool>
 																		<reference ref="387769130"/>
 																		<reference ref="284401102"/>
-																		<reference ref="468265316"/>
+																		<reference ref="194270340"/>
 																	</object>
 																	<object class="NSMutableArray">
 																		<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2693,7 +2693,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 																		<bool key="EncodedWithXMLCoder">YES</bool>
 																		<reference ref="32090218"/>
 																		<reference ref="1023100770"/>
-																		<reference ref="624289608"/>
+																		<reference ref="965400979"/>
 																	</object>
 																	<object class="NSMutableArray">
 																		<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6900,7 +6900,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
-					<string>{{231, 499}, {463, 500}}</string>
+					<string>{{344, 499}, {463, 500}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>{{271, 356}, {461, 500}}</string>
