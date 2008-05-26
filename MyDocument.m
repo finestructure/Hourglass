@@ -40,6 +40,11 @@
   
   [self showTaskView];
   
+  // configure predicate editor
+  [[predicateEditor enclosingScrollView] setHasVerticalScroller:NO];
+  previousRowCount = 3;
+  [predicateEditor addRow:self];
+  
   // Set up the default groups
   {
     NSManagedObjectContext *moc = [self managedObjectContext];
@@ -171,6 +176,18 @@
 
 // ----------------------------------------------------------------------
 
+- (NSDate*)dmyForDate:(NSDate*)date {
+  NSCalendar* cal = [NSCalendar currentCalendar];
+  unsigned dateFlags = ( NSYearCalendarUnit 
+                        | NSMonthCalendarUnit 
+                        | NSDayCalendarUnit );
+  NSDateComponents* dateComponents = [cal components:dateFlags
+                                            fromDate:date];
+  return [cal dateFromComponents:dateComponents];
+}
+
+// ----------------------------------------------------------------------
+
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object 
                         change:(NSDictionary *)change 
@@ -203,12 +220,22 @@
 // ----------------------------------------------------------------------
 
 - (void)applyGroupFilter {
+  
   NSString* groupName = [[groupsController selection] valueForKey:@"name"];
   // Defaul 'nil' is removing the filer and displaying all tasks
   NSPredicate* filter = nil;
+
   if ([groupName isEqualTo:@"All"]) {
+    
+    //previousRowCount = 2;
+    [predicateEditor setObjectValue:nil];
+    [predicateEditor addRow:self];
+    [self resizePredicateEditor];
+    
     [self showTaskView];
+    
   } else if ([groupName isEqualTo:@"Current Month"]) {
+    
     NSDate* firstOfThisMonth = [self dateWithFirstOfMonthFor:[NSDate date]];
     NSCalendar* cal = [NSCalendar currentCalendar];
     NSDateComponents* oneMonth = [[[NSDateComponents alloc] init] autorelease];
@@ -216,11 +243,21 @@
     NSDate* firstOfNextMonth = [cal dateByAddingComponents:oneMonth 
                                                     toDate:firstOfThisMonth 
                                                    options:0];
-    filter = [NSPredicate 
-              predicateWithFormat:@"%@ <= startDate and startDate < %@",
-              firstOfThisMonth, firstOfNextMonth];
+    NSPredicate* p1 = [NSPredicate 
+                        predicateWithFormat:@"startDate => %@", firstOfThisMonth];
+    NSPredicate* p2 = [NSPredicate 
+                       predicateWithFormat:@"startDate < %@", firstOfNextMonth];
+    filter = [NSCompoundPredicate andPredicateWithSubpredicates:
+              [NSArray arrayWithObjects:p1, p2, nil]];
+    
+    //previousRowCount = 3;
+    [predicateEditor setObjectValue:filter];
+    [self resizePredicateEditor];
+
     [self showTaskView];
+    
   } else if ([groupName isEqualTo:@"Current Week"]) {
+    
     NSCalendar* cal = [NSCalendar currentCalendar];
     [cal setFirstWeekday:2]; // Monday
     unsigned unitFlags = NSYearCalendarUnit | NSWeekCalendarUnit;
@@ -233,10 +270,17 @@
                                                    toDate:startOfThisWeek
                                                   options:0];
     filter = [NSPredicate 
-              predicateWithFormat:@"%@ <= startDate and startDate < %@",
+              predicateWithFormat:@"startDate >= %@ and startDate < %@",
               startOfThisWeek, startOfNextWeek];
+
+    //previousRowCount = 3;
+    [predicateEditor setObjectValue:filter];
+    [self resizePredicateEditor];
+
     [self showTaskView];
+    
   } else if ([groupName isEqualTo:@"Last Month"]) {
+    
     NSDate* firstOfThisMonth = [self dateWithFirstOfMonthFor:[NSDate date]];
     NSCalendar* cal = [NSCalendar currentCalendar];
     NSDateComponents* 
@@ -246,9 +290,15 @@
                                                     toDate:firstOfThisMonth 
                                                    options:0];
     filter = [NSPredicate 
-              predicateWithFormat:@"%@ <= startDate and startDate < %@",
+              predicateWithFormat:@"startDate >= %@ and startDate < %@",
               firstOfLastMonth, firstOfThisMonth];
+
+    //previousRowCount = 3;
+    [predicateEditor setObjectValue:filter];
+    [self resizePredicateEditor];
+
     [self showTaskView];
+  
   } else if ([groupName isEqualTo:@"Customers"]) {
     [self showCustomerView];
   } else if ([groupName isEqualTo:@"Projects"]) {
@@ -298,7 +348,7 @@
   NSSavePanel* sp = [NSSavePanel savePanel];
   [sp setRequiredFileType:[fileTypeSelector titleOfSelectedItem]];
   [sp setCanSelectHiddenExtension:YES];
-  [sp setAccessoryView:fileTypeAccessory];
+  [sp setAccessoryView:_savePanelAccessory];
   savePanel = sp;
   
   NSString* currentDoc = [[self fileURL] path];
@@ -320,17 +370,18 @@
              returnCode:(int)returnCode
             contextInfo:(void*)contextInfo {
   if ( returnCode == NSOKButton ) {
+    BOOL fillDays = [fillDaysSelector state] == NSOnState;
     if ([[fileTypeSelector titleOfSelectedItem] isEqual:@"txt"]) {
-      [self exportToText:[sheet filename]];
+      [self exportToText:[sheet filename] fillDays:fillDays];
     } else if ([[fileTypeSelector titleOfSelectedItem] isEqual:@"xml"]) {
-      [self exportToXML:[sheet filename]];
+      [self exportToXML:[sheet filename] fillDays:fillDays];
     }
   }
 }
 
 // ----------------------------------------------------------------------
 
-- (void)exportToText:(NSString*)filename {
+- (void)exportToText:(NSString*)filename fillDays:(BOOL)fillDays {
   // prepare the formatter
   NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
   [formatter setDateFormat:@"y-MM-dd HH:mm"];
@@ -343,7 +394,36 @@
   tasks = [tasks sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDesc]];
   
   NSMutableString* output = [NSMutableString string];
+  NSDate* lastDate = nil;
+  
   for (Task* t in tasks) {
+    if ( fillDays && lastDate != nil ) {
+      NSDateComponents* dateDiff = [[NSCalendar currentCalendar]
+                                    components:NSDayCalendarUnit
+                                    fromDate:lastDate
+                                    toDate:[self dmyForDate:[t startDate]]
+                                    options:0];
+      int i;
+      for (i=1; i < [dateDiff day]; ++i) {
+        NSDateComponents* days = [[NSDateComponents alloc] init];
+        [days setDay:i];
+        NSDate* fillDate = [[NSCalendar currentCalendar]
+                            dateByAddingComponents:days
+                            toDate:lastDate 
+                            options:0];
+        NSArray* parts = [NSArray arrayWithObjects:
+                          [formatter stringFromDate:fillDate],
+                          [formatter stringFromDate:fillDate],
+                          0, // length
+                          @"", // project
+                          @"", // desc
+                          nil ];
+        [output appendString:[parts componentsJoinedByString:@"\t"]];
+        [output appendString:@"\n"];
+      }
+    }
+    lastDate = [self dmyForDate:[t startDate]];
+
     NSArray* parts = [NSArray arrayWithObjects:
                       [formatter stringFromDate:[t startDate]],
                       [formatter stringFromDate:[t endDate]],
@@ -363,7 +443,7 @@
 
 // ----------------------------------------------------------------------
 
-- (void)exportToXML:(NSString*)filename {
+- (void)exportToXML:(NSString*)filename fillDays:(BOOL)fillDays {
   // prepare the formatter
   NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
   [formatter setDateFormat:@"y-MM-dd HH:mm"];
@@ -379,7 +459,36 @@
   [output appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"];
   [output appendString:@"<tasks>\n"];
   
+  NSDate* lastDate = nil;
+
   for (Task* t in tasks) {
+    if ( fillDays && lastDate != nil ) {
+      NSDateComponents* dateDiff = [[NSCalendar currentCalendar]
+                                    components:NSDayCalendarUnit
+                                    fromDate:lastDate
+                                    toDate:[self dmyForDate:[t startDate]]
+                                    options:0];
+      int i;
+      for (i=1; i < [dateDiff day]; ++i) {
+        NSDateComponents* days = [[NSDateComponents alloc] init];
+        [days setDay:i];
+        NSDate* fillDate = [[NSCalendar currentCalendar]
+                            dateByAddingComponents:days
+                            toDate:lastDate 
+                            options:0];
+        [output appendString:@"\t<task>\n"];
+        [output appendFormat:@"\t\t<start>%@</start>\n", 
+         [formatter stringFromDate:fillDate]];
+        [output appendFormat:@"\t\t<end>%@</end>\n", 
+         [formatter stringFromDate:fillDate]];
+        [output appendString:@"\t\t<length></length>\n"];
+        [output appendString:@"\t\t<project></project>\n"];
+        [output appendString:@"\t\t<description></description>\n"];
+        [output appendString:@"\t<task>\n"];
+      }
+    }
+    lastDate = [self dmyForDate:[t startDate]];
+    
     [output appendString:@"\t<task>\n"];
     [output appendFormat:@"\t\t<start>%@</start>\n", [formatter stringFromDate:[t startDate]]];
     [output appendFormat:@"\t\t<end>%@</end>\n", [formatter stringFromDate:[t endDate]]];
@@ -401,6 +510,54 @@
 
 - (void)fileTypeSelection:(id)sender {
   [savePanel setRequiredFileType:[fileTypeSelector titleOfSelectedItem]];
+}
+
+// ----------------------------------------------------------------------
+
+- (IBAction)predicateEditorChanged:(id)sender {
+  NSPredicate* predicate = [predicateEditor predicate];
+  [tasksController setFilterPredicate:predicate];
+
+  if ([predicateEditor numberOfRows] == 0) [predicateEditor addRow:self];
+  
+  [self resizePredicateEditor];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)resizePredicateEditor {
+  NSInteger newRowCount = [predicateEditor numberOfRows];
+  
+  if (newRowCount == previousRowCount) return;
+  
+  /* The autoresizing masks, by default, allows the outline view to grow and keeps the predicate editor fixed.  We need to temporarily grow the predicate editor, and keep the outline view fixed, so we have to change the autoresizing masks.  Save off the old ones; we'll restore them after changing the window frame. */
+  NSUInteger oldDetailViewMask = [taskDetailView autoresizingMask];
+  
+  NSScrollView *predicateEditorScrollView = [predicateEditor enclosingScrollView];
+  NSUInteger oldPredicateEditorViewMask = [predicateEditorScrollView autoresizingMask];
+  
+  [taskDetailView setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin];
+  [predicateEditorScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+  
+  BOOL growing = (newRowCount > previousRowCount);
+  
+  CGFloat heightDifference = fabs([predicateEditor rowHeight] * (newRowCount - previousRowCount));
+  
+  /* Convert the size to window coordinates.  This is very important!  If we didn't do this, we would break under scale factors other than 1.  We don't care about the horizontal dimension, so leave that as 0. */
+  NSSize sizeChange = [predicateEditor convertSize:NSMakeSize(0, heightDifference) toView:nil];
+  
+  /* Change the window frame size.  If we're growing, the height goes up and the origin goes down (corresponding to growing down).  If we're shrinking, the height goes down and the origin goes up. */
+  NSRect windowFrame = [mainWindow frame];
+  windowFrame.size.height += growing ? sizeChange.height : -sizeChange.height;
+  windowFrame.origin.y -= growing ? sizeChange.height : -sizeChange.height;
+  [mainWindow setFrame:windowFrame display:YES animate:YES];
+  
+  /* restore the autoresizing mask */
+  [taskDetailView setAutoresizingMask:oldDetailViewMask];
+  [predicateEditorScrollView setAutoresizingMask:oldPredicateEditorViewMask];
+  
+  /* record our new row count */
+  previousRowCount = newRowCount;
 }
 
 // ----------------------------------------------------------------------

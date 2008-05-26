@@ -10,19 +10,23 @@
 
 @interface MyDocument : NSPersistentDocument {
   
-	IBOutlet NSView *sourceView;
-	IBOutlet NSView *sourceViewPlaceholder;
-	IBOutlet NSView *contentViewPlaceholder;
+  IBOutlet NSView *sourceView;
+  IBOutlet NSView *sourceViewPlaceholder;
+  IBOutlet NSView *contentViewPlaceholder;
   IBOutlet NSArrayController* tasksController;
   IBOutlet NSArrayController* groupsController;
   IBOutlet NSTableView* contentList;
-	IBOutlet NSView* taskView;
+  IBOutlet NSView* taskView; // full task view, incl predicate editor
   IBOutlet NSView* customerView;
   IBOutlet NSView* projectView;
+  IBOutlet NSView* taskDetailView; // task detail view, below pred. editor
   IBOutlet NSWindow* mainWindow;
-  IBOutlet NSView* fileTypeAccessory;
+  IBOutlet NSView* _savePanelAccessory; // '_' prevents clash with NSDocument's member
   IBOutlet NSPopUpButton* fileTypeSelector;
+  IBOutlet NSButton* fillDaysSelector;
+  IBOutlet NSPredicateEditor* predicateEditor;
   NSSavePanel* savePanel;
+  NSInteger previousRowCount;
   
 }
 
@@ -30,9 +34,9 @@
   containsName:(NSString*)groupName
    withImage:(NSString*)imageName;
 
-- (void)exportToText:(NSString*)filename;
-- (void)exportToXML:(NSString*)filename;
-
+- (void)exportToText:(NSString*)filename fillDays:(BOOL)fillDays;
+- (void)exportToXML:(NSString*)filename fillDays:(BOOL)fillDays;
+- (void)resizePredicateEditor;
 
 // IB actions
 
@@ -45,5 +49,9 @@
 - (void)applyGroupFilter;
 - (void)export:(id)sender;
 - (void)fileTypeSelection:(id)sender;
+
+// delegates
+
+- (IBAction)predicateEditorChanged:(id)sender;
 
 @end
