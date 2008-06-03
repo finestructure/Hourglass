@@ -38,7 +38,11 @@
 	[sourceView setFrameSize:[sourceViewPlaceholder frame].size];
 	[sourceViewPlaceholder addSubview:sourceView];
   
-  [self showTaskView];
+  [taskView setWantsLayer:YES];
+  [customerView setWantsLayer:YES];
+  [projectView setWantsLayer:YES];
+  
+  [self showView:taskView];
   
   // configure predicate editor
   [[predicateEditor enclosingScrollView] setHasVerticalScroller:NO];
@@ -232,7 +236,7 @@
     [predicateEditor addRow:self];
     [self resizePredicateEditor];
     
-    [self showTaskView];
+    [self showView:taskView];
     
   } else if ([groupName isEqualTo:@"Current Month"]) {
     
@@ -254,7 +258,7 @@
     [predicateEditor setObjectValue:filter];
     [self resizePredicateEditor];
 
-    [self showTaskView];
+    [self showView:taskView];
     
   } else if ([groupName isEqualTo:@"Current Week"]) {
     
@@ -277,7 +281,7 @@
     [predicateEditor setObjectValue:filter];
     [self resizePredicateEditor];
 
-    [self showTaskView];
+    [self showView:taskView];
     
   } else if ([groupName isEqualTo:@"Last Month"]) {
     
@@ -297,41 +301,46 @@
     [predicateEditor setObjectValue:filter];
     [self resizePredicateEditor];
 
-    [self showTaskView];
+    [self showView:taskView];
   
   } else if ([groupName isEqualTo:@"Customers"]) {
-    [self showCustomerView];
+    [self showView:customerView];
   } else if ([groupName isEqualTo:@"Projects"]) {
-    [self showProjectView];
+    [self showView:projectView];
   }
   [tasksController setFilterPredicate:filter];
 }
 
 // ----------------------------------------------------------------------
 
-- (void)showTaskView {
-  [customerView removeFromSuperview];
-  [projectView removeFromSuperview];
-  [taskView setFrameSize:[contentViewPlaceholder frame].size];
-  [contentViewPlaceholder addSubview:taskView];
-}
+- (void)showView:(NSView*)aView {
+  NSArray* allViews = [NSArray arrayWithObjects:taskView, customerView, projectView, nil];
+  
+  [contentViewPlaceholder addSubview:aView];
+  [aView setFrameSize:[contentViewPlaceholder frame].size];
+  [aView setAlphaValue:0];
+  
+  [NSAnimationContext beginGrouping];
+  [[NSAnimationContext currentContext] setDuration:0.5];
+  
+  [[taskView animator] setAlphaValue:0];
+  [[projectView animator] setAlphaValue:0];
 
-// ----------------------------------------------------------------------
-
-- (void)showCustomerView {
-  [taskView removeFromSuperview];
-  [projectView removeFromSuperview];
-  [customerView setFrameSize:[contentViewPlaceholder frame].size];
-  [contentViewPlaceholder addSubview:customerView];
-}
-
-// ----------------------------------------------------------------------
-
-- (void)showProjectView {
-  [taskView removeFromSuperview];
-  [customerView removeFromSuperview];
-  [projectView setFrameSize:[contentViewPlaceholder frame].size];
-  [contentViewPlaceholder addSubview:projectView];
+  for (NSView* view in allViews) {
+    if ( view != aView ) {
+      [[view animator] setAlphaValue:0];
+    } else {
+      [[view animator] setAlphaValue:1];
+    }
+  }
+  
+  [NSAnimationContext endGrouping];
+  
+  for (NSView* view in allViews) {
+    if ( view != aView ) {
+      [view removeFromSuperview];
+    }
+  }
 }
 
 // ----------------------------------------------------------------------

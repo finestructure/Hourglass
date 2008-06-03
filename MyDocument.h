@@ -37,15 +37,13 @@
 - (void)exportToText:(NSString*)filename fillDays:(BOOL)fillDays;
 - (void)exportToXML:(NSString*)filename fillDays:(BOOL)fillDays;
 - (void)resizePredicateEditor;
+- (void)showView:(NSView*)aView;
 
 // IB actions
 
 - (void)newTask:(id)sender;
 - (void)setStartToNow:(id)sender;
 - (void)setEndToNow:(id)sender;
-- (void)showTaskView;
-- (void)showCustomerView;
-- (void)showProjectView;
 - (void)applyGroupFilter;
 - (void)export:(id)sender;
 - (void)fileTypeSelection:(id)sender;
