@@ -318,24 +318,7 @@
   
   [contentViewPlaceholder addSubview:aView];
   [aView setFrameSize:[contentViewPlaceholder frame].size];
-  [aView setAlphaValue:0];
-  
-  [NSAnimationContext beginGrouping];
-  [[NSAnimationContext currentContext] setDuration:0.5];
-  
-  [[taskView animator] setAlphaValue:0];
-  [[projectView animator] setAlphaValue:0];
 
-  for (NSView* view in allViews) {
-    if ( view != aView ) {
-      [[view animator] setAlphaValue:0];
-    } else {
-      [[view animator] setAlphaValue:1];
-    }
-  }
-  
-  [NSAnimationContext endGrouping];
-  
   for (NSView* view in allViews) {
     if ( view != aView ) {
       [view removeFromSuperview];
