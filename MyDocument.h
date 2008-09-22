@@ -51,5 +51,7 @@
 // delegates
 
 - (IBAction)predicateEditorChanged:(id)sender;
+- (void)textDidEndEditing:(NSNotification *)aNotification;
+- (BOOL)textShouldEndEditing:(NSText *)textObject;
 
 @end

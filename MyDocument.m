@@ -90,6 +90,12 @@
      selector:@selector(objectsChangedInContext:)  
      name:NSManagedObjectContextObjectsDidChangeNotification 
      object:[self managedObjectContext]];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(textDidEndEditing:)
+     name:NSControlTextDidEndEditingNotification
+     object:contentList];
   }
   
   // set up content view sorting
@@ -553,5 +559,21 @@
 }
 
 // ----------------------------------------------------------------------
+
+
+- (void)textDidEndEditing:(NSNotification *)aNotification {
+  NSLog(@"textDidEndEditing userInfo: %@", [aNotification userInfo]);
+  NSTextView *view = [[aNotification userInfo] objectForKey:@"NSFieldEditor"];
+  NSLog(@"textDidEndEditing: %@", view);
+  NSLog(@"editedColumn: %d", [contentList editedColumn]);
+}
+
+
+- (BOOL)textShouldEndEditing:(NSText *)textObject {
+  NSLog(@"text: %@", textObject);
+  return YES;
+}
+
+
 
 @end
