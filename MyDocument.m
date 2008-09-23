@@ -34,6 +34,8 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)windowController {
   [super windowControllerDidLoadNib:windowController];
 
+  [contentList setDelegate:self];
+  
   // Place the source list view in the left panel.
 	[sourceView setFrameSize:[sourceViewPlaceholder frame].size];
 	[sourceViewPlaceholder addSubview:sourceView];
@@ -562,18 +564,73 @@
 
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
-  NSLog(@"textDidEndEditing userInfo: %@", [aNotification userInfo]);
-  NSTextView *view = [[aNotification userInfo] objectForKey:@"NSFieldEditor"];
-  NSLog(@"textDidEndEditing: %@", view);
-  NSLog(@"editedColumn: %d", [contentList editedColumn]);
+  // don't need to check for -1 index, because the notification always 
+  // comes from the table view
+  NSTableColumn *editedColumn = [contentList.tableColumns 
+                                 objectAtIndex:contentList.editedColumn];
+  
+  // If we're editing the 'date' column, fix the overwritten year, hour,
+  // and minute fields by restoring them from the cache. Not really pretty
+  // but the best I could come up with for now.
+  if ([editedColumn.identifier isEqualToString:@"date"]) {
+    Task *task = [tasksController.arrangedObjects 
+                  objectAtIndex:contentList.editedRow];
+    NSDateComponents *editedComponents = [[NSCalendar currentCalendar]
+                                          components:(NSYearCalendarUnit | 
+                                                      NSMonthCalendarUnit |
+                                                      NSDayCalendarUnit |
+                                                      NSHourCalendarUnit |
+                                                      NSMinuteCalendarUnit |
+                                                      NSSecondCalendarUnit)
+                                          fromDate:task.startDate];
+    if (editedComponents.year == 1970 
+        && cachedStartDate != nil && cachedEndDate != nil) {
+      { // fix start date
+        NSDateComponents *fixedComponents = [[NSCalendar currentCalendar]
+                                             components:(NSYearCalendarUnit | 
+                                                         NSHourCalendarUnit |
+                                                       NSMinuteCalendarUnit |
+                                                         NSSecondCalendarUnit)
+                                             fromDate:cachedStartDate];
+        [fixedComponents setMonth:editedComponents.month];
+        [fixedComponents setDay:editedComponents.day];
+        task.startDate = [[NSCalendar currentCalendar]
+                          dateFromComponents:fixedComponents];
+      }
+      { // fix end date
+        NSDateComponents *fixedComponents = [[NSCalendar currentCalendar]
+                                             components:(NSYearCalendarUnit | 
+                                                         NSHourCalendarUnit |
+                                                         NSMinuteCalendarUnit |
+                                                         NSSecondCalendarUnit)
+                                             fromDate:cachedEndDate];
+        [fixedComponents setMonth:editedComponents.month];
+        [fixedComponents setDay:editedComponents.day];
+        task.endDate = [[NSCalendar currentCalendar]
+                        dateFromComponents:fixedComponents];
+      }
+    }
+  }
 }
 
-
-- (BOOL)textShouldEndEditing:(NSText *)textObject {
-  NSLog(@"text: %@", textObject);
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor {
+  // We're caching the previous values of the edited tasks start and end date.
+  // The reason for this is that edit operations in the date colum will wipe
+  // out the year, hour, and minute fields of those dates. They are restored
+  // from the cache in 'textDidEndEditing:'.
+  
+  NSInteger rowIndex = contentList.editedRow;
+  if (rowIndex >= 0) {
+    Task *task = [tasksController.arrangedObjects 
+                  objectAtIndex:contentList.editedRow];
+    cachedStartDate = task.startDate;
+    cachedEndDate = task.endDate;
+  } else {
+    cachedStartDate = nil;
+    cachedEndDate = nil;
+  }
   return YES;
 }
-
 
 
 @end

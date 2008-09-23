@@ -15,11 +15,11 @@
 - (NSDate*)dateWithDate:(NSDate*)date andTime:(NSDate*)time;
 
 
-@property(readonly) NSDate* startDate;
-@property(readonly) NSDate* endDate;
-@property(readonly) NSString* desc;
-@property(readonly) NSNumber* length;
-@property(readonly) id project;
+@property(assign) NSDate* startDate;
+@property(assign) NSDate* endDate;
+@property(assign) NSString* desc;
+@property(assign) NSNumber* length;
+@property(assign) id project;
 
 
 @end

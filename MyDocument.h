@@ -27,7 +27,8 @@
   IBOutlet NSPredicateEditor* predicateEditor;
   NSSavePanel* savePanel;
   NSInteger previousRowCount;
-  
+  NSDate *cachedStartDate;
+  NSDate *cachedEndDate;
 }
 
 - (void)ensure:(id)groups
@@ -52,6 +53,5 @@
 
 - (IBAction)predicateEditorChanged:(id)sender;
 - (void)textDidEndEditing:(NSNotification *)aNotification;
-- (BOOL)textShouldEndEditing:(NSText *)textObject;
 
 @end
