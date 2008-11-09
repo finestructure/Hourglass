@@ -494,7 +494,7 @@
     [output appendFormat:@"\t\t<end>%@</end>\n", [formatter stringFromDate:[t endDate]]];
     [output appendFormat:@"\t\t<length>%@</length>\n", [t length]];
     [output appendFormat:@"\t\t<project>%@</project>\n", [[t project] name]];
-    [output appendFormat:@"\t\t<customer>%@</customer>\n", "dummy"];
+    [output appendFormat:@"\t\t<customer>%@</customer>\n", @"dummy"];
     [output appendFormat:@"\t\t<description>%@</description>\n", [t desc]];
     [output appendString:@"\t</task>\n"];
   }
