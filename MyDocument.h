@@ -21,7 +21,7 @@
   IBOutlet NSView* projectView;
   IBOutlet NSView* taskDetailView; // task detail view, below pred. editor
   IBOutlet NSWindow* mainWindow;
-  IBOutlet NSView* _savePanelAccessory; // '_' prevents clash with NSDocument's member
+  IBOutlet NSView* stdExportPanelAccessory;
   IBOutlet NSPopUpButton* fileTypeSelector;
   IBOutlet NSButton* fillDaysSelector;
   IBOutlet NSPredicateEditor* predicateEditor;
@@ -31,25 +31,29 @@
   NSDate *cachedEndDate;
 }
 
+#pragma mark workers
+
 - (void)ensure:(id)groups
   containsName:(NSString*)groupName
    withImage:(NSString*)imageName;
 
+- (NSString *)xmlForTasks:(NSArray*)tasks fillDays:(BOOL)fillDays;
 - (void)exportToText:(NSString*)filename fillDays:(BOOL)fillDays;
 - (void)exportToXML:(NSString*)filename fillDays:(BOOL)fillDays;
 - (void)resizePredicateEditor;
 - (void)showView:(NSView*)aView;
 
-// IB actions
+#pragma mark IB actions
 
 - (void)newTask:(id)sender;
 - (void)setStartToNow:(id)sender;
 - (void)setEndToNow:(id)sender;
 - (void)applyGroupFilter;
 - (void)export:(id)sender;
+- (void)processWithXslt:(id)sender;
 - (void)fileTypeSelection:(id)sender;
 
-// delegates
+#pragma mark delegates
 
 - (IBAction)predicateEditorChanged:(id)sender;
 - (void)textDidEndEditing:(NSNotification *)aNotification;

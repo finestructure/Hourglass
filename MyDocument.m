@@ -334,7 +334,13 @@
   }
 }
 
+
 // ----------------------------------------------------------------------
+
+#pragma mark export
+
+// ----------------------------------------------------------------------
+
 
 - (void)export:(id)sender {
   NSString *documentsDirectory = nil;
@@ -345,28 +351,27 @@
     documentsDirectory = [paths objectAtIndex:0];
   }
   
-  NSSavePanel* sp = [NSSavePanel savePanel];
-  [sp setRequiredFileType:[fileTypeSelector titleOfSelectedItem]];
-  [sp setCanSelectHiddenExtension:YES];
-  [sp setAccessoryView:_savePanelAccessory];
-  savePanel = sp;
+  savePanel = [NSSavePanel savePanel];
+  [savePanel setRequiredFileType:[fileTypeSelector titleOfSelectedItem]];
+  [savePanel setCanSelectHiddenExtension:YES];
+  [savePanel setAccessoryView:stdExportPanelAccessory];
   
   NSString* currentDoc = [[self fileURL] path];
   NSString* newDoc = [[[currentDoc lastPathComponent] 
                       stringByDeletingPathExtension]
                       stringByAppendingPathExtension:@"txt"];
   
-  [sp beginSheetForDirectory:nil
-                        file:newDoc
-              modalForWindow:mainWindow
-               modalDelegate:self
-              didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:)
-                 contextInfo:nil];
+  [savePanel beginSheetForDirectory:nil
+                               file:newDoc
+                     modalForWindow:mainWindow
+                      modalDelegate:self
+                     didEndSelector:@selector(exportPanelDidEnd:returnCode:contextInfo:)
+                        contextInfo:nil];
 }
 
 // ----------------------------------------------------------------------
 
-- (void)savePanelDidEnd:(NSSavePanel *)sheet
+- (void)exportPanelDidEnd:(NSSavePanel *)sheet
              returnCode:(int)returnCode
             contextInfo:(void*)contextInfo {
   if ( returnCode == NSOKButton ) {
@@ -441,27 +446,29 @@
                 error:&error];
 }
 
+
 // ----------------------------------------------------------------------
 
-- (void)exportToXML:(NSString*)filename fillDays:(BOOL)fillDays {
+
+- (NSString *)xmlForTasks:(NSArray*)tasks fillDays:(BOOL)fillDays {
   // prepare the formatter
   NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
   [formatter setDateFormat:@"y-MM-dd HH:mm"];
   
   // sort ascending by start date
-  NSArray* tasks = [tasksController arrangedObjects];
   NSSortDescriptor* 
   sortDesc = [[NSSortDescriptor alloc] initWithKey:@"startDate"
                                          ascending:YES];
-  tasks = [tasks sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDesc]];
+  NSArray *sortedTasks 
+  = [tasks sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDesc]];
   
-  NSMutableString* output = [NSMutableString string];
-  [output appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"];
-  [output appendString:@"<tasks>\n"];
+  NSMutableString* xml = [NSMutableString string];
+  [xml appendString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"];
+  [xml appendString:@"<tasks>\n"];
   
   NSDate* lastDate = nil;
-
-  for (Task* t in tasks) {
+  
+  for (Task* t in sortedTasks) {
     if ( fillDays && lastDate != nil ) {
       NSDateComponents* dateDiff = [[NSCalendar currentCalendar]
                                     components:NSDayCalendarUnit
@@ -476,44 +483,160 @@
                             dateByAddingComponents:days
                             toDate:lastDate 
                             options:0];
-        [output appendString:@"\t<task>\n"];
-        [output appendFormat:@"\t\t<start>%@</start>\n", 
+        [xml appendString:@"\t<task>\n"];
+        [xml appendFormat:@"\t\t<start>%@</start>\n", 
          [formatter stringFromDate:fillDate]];
-        [output appendFormat:@"\t\t<end>%@</end>\n", 
+        [xml appendFormat:@"\t\t<end>%@</end>\n", 
          [formatter stringFromDate:fillDate]];
-        [output appendString:@"\t\t<length></length>\n"];
-        [output appendString:@"\t\t<project></project>\n"];
-        [output appendString:@"\t\t<description></description>\n"];
-        [output appendString:@"\t</task>\n"];
+        [xml appendString:@"\t\t<length></length>\n"];
+        [xml appendString:@"\t\t<project></project>\n"];
+        [xml appendString:@"\t\t<description></description>\n"];
+        [xml appendString:@"\t</task>\n"];
       }
     }
     lastDate = [self dmyForDate:[t startDate]];
     
-    [output appendString:@"\t<task>\n"];
-    [output appendFormat:@"\t\t<start>%@</start>\n", [formatter stringFromDate:[t startDate]]];
-    [output appendFormat:@"\t\t<end>%@</end>\n", [formatter stringFromDate:[t endDate]]];
-    [output appendFormat:@"\t\t<length>%@</length>\n", [t length]];
-    [output appendFormat:@"\t\t<project>%@</project>\n", [[t project] name]];
-    [output appendFormat:@"\t\t<customer>%@</customer>\n", @"dummy"];
-    [output appendFormat:@"\t\t<description>%@</description>\n", [t desc]];
-    [output appendString:@"\t</task>\n"];
+    [xml appendString:@"\t<task>\n"];
+    [xml appendFormat:@"\t\t<start>%@</start>\n", 
+     [formatter stringFromDate:[t startDate]]];
+    [xml appendFormat:@"\t\t<end>%@</end>\n", 
+     [formatter stringFromDate:[t endDate]]];
+    [xml appendFormat:@"\t\t<length>%@</length>\n", [t length]];
+    [xml appendFormat:@"\t\t<project>%@</project>\n", [[t project] name]];
+    [xml appendFormat:@"\t\t<customer>%@</customer>\n", @"dummy"];
+    [xml appendFormat:@"\t\t<description>%@</description>\n", [t desc]];
+    [xml appendString:@"\t</task>\n"];
   }
-  [output appendString:@"</tasks>\n"];
+  [xml appendString:@"</tasks>\n"];
+  return xml;
+}
+
+
+// ----------------------------------------------------------------------
+
+- (void)exportToXML:(NSString*)filename fillDays:(BOOL)fillDays {
+  NSString *xml = [self xmlForTasks:[tasksController arrangedObjects]
+                           fillDays:fillDays];
 
   NSError* error;
-  [output writeToFile:filename
-           atomically:YES
-             encoding:NSUTF8StringEncoding
-                error:&error];
+  [xml writeToFile:filename
+        atomically:YES
+          encoding:NSUTF8StringEncoding
+             error:&error];
 }
-  
+
+
 // ----------------------------------------------------------------------
+
 
 - (void)fileTypeSelection:(id)sender {
   [savePanel setRequiredFileType:[fileTypeSelector titleOfSelectedItem]];
 }
 
+
 // ----------------------------------------------------------------------
+
+#pragma mark xslt export
+
+// ----------------------------------------------------------------------
+
+
+- (void)processWithXslt:(id)sender {
+  NSOpenPanel *panel = [NSOpenPanel openPanel];
+  [panel setRequiredFileType:@"xsl"];
+  [panel setCanChooseFiles:YES];
+  [panel setCanChooseDirectories:NO];
+  [panel setAllowsMultipleSelection:NO];
+  [panel setMessage:NSLocalizedString(@"Choose XSL file for processing",
+                                      @"xslt processing panel title")];
+  [panel setPrompt:NSLocalizedString(@"Choose",
+                                     @"xslt processing panel prompt button text")];
+  [panel beginSheetForDirectory:nil 
+                           file:nil 
+                          types:[NSArray arrayWithObjects:@"xsl", @"xslt", nil]
+                 modalForWindow:mainWindow 
+                  modalDelegate:self
+                 didEndSelector:@selector(xsltOpenPanelDidEnd:returnCode:contextInfo:)
+                    contextInfo:nil];
+}
+
+
+// ----------------------------------------------------------------------
+
+
+- (void)xsltOpenPanelDidEnd:(NSOpenPanel *)sheet
+                 returnCode:(int)returnCode
+                contextInfo:(void*)contextInfo {
+  if ( returnCode == NSOKButton ) {
+    NSString *filename = [NSString stringWithString:[sheet filename]];
+    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hack:) userInfo:filename repeats:NO];
+  }
+}
+
+// ----------------------------------------------------------------------
+
+- (void)hack:(NSTimer *)timer {
+  NSSavePanel *panel = [NSSavePanel savePanel];
+  [panel setCanSelectHiddenExtension:YES];
+  
+  NSString* currentDoc = [[self fileURL] path];
+  NSString* newDoc = [[[currentDoc lastPathComponent] 
+                       stringByDeletingPathExtension]
+                      stringByAppendingPathExtension:@"txt"];
+  
+  NSString *xslFilename = [[NSString stringWithString:[timer userInfo]] retain];
+  if (xslFilename) {
+    NSLog(@"xslFilename: %@", xslFilename);
+  } else {
+    NSLog(@"xslFilename: nil");
+  }
+  [panel beginSheetForDirectory:nil
+                           file:newDoc
+                 modalForWindow:mainWindow
+                  modalDelegate:self
+                 didEndSelector:@selector(xsltSavePanelDidEnd:returnCode:contextInfo:)
+                    contextInfo:xslFilename];
+}
+
+// ----------------------------------------------------------------------
+
+- (void)xsltSavePanelDidEnd:(NSOpenPanel *)sheet
+                 returnCode:(int)returnCode
+                contextInfo:(void*)contextInfo {
+  if ( returnCode == NSOKButton ) {
+    NSLog(@"processWithXslt");
+    NSString *xml = [self xmlForTasks:[tasksController arrangedObjects]
+                             fillDays:NO];
+    
+    //NSLog(@"xml:\n%@", xml);
+    NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:xml options:0 error:NULL] autorelease];
+    //NSLog(@"doc: %@", doc);
+    NSString *xslFilename = (NSString *)contextInfo;
+    if (xslFilename) {
+      NSLog(@"xslFilename: %@", xslFilename);
+    } else {
+      NSLog(@"xslFilename: nil");
+    }
+    NSLog(@"xsl: %@", [NSString stringWithContentsOfFile:xslFilename
+                                                encoding:NSUTF8StringEncoding
+                                                   error:NULL]);
+    NSData *xslt = [NSData dataWithContentsOfFile:xslFilename];
+    id newDoc = [doc objectByApplyingXSLT:xslt arguments:nil error:NULL];
+    NSString *newString = [[[NSString alloc] initWithData:newDoc encoding:NSUTF8StringEncoding] autorelease];
+    NSLog(@"new doc:\n%@", newString);
+    [newString writeToFile:[sheet filename]
+               atomically:YES 
+                 encoding:NSUTF8StringEncoding
+                    error:NULL];
+  }
+}
+
+// ----------------------------------------------------------------------
+
+#pragma mark predicate editor
+
+// ----------------------------------------------------------------------
+
 
 - (IBAction)predicateEditorChanged:(id)sender {
   NSPredicate* predicate = [predicateEditor predicate];
@@ -560,6 +683,11 @@
   /* record our new row count */
   previousRowCount = newRowCount;
 }
+
+
+// ----------------------------------------------------------------------
+
+#pragma mark text editing notifications
 
 // ----------------------------------------------------------------------
 
@@ -614,6 +742,10 @@
   }
 }
 
+
+// ----------------------------------------------------------------------
+
+
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor {
   // We're caching the previous values of the edited tasks start and end date.
   // The reason for this is that edit operations in the date colum will wipe
@@ -632,6 +764,10 @@
   }
   return YES;
 }
+
+
+// ----------------------------------------------------------------------
+
 
 
 @end
