@@ -503,7 +503,8 @@
      [formatter stringFromDate:[t endDate]]];
     [xml appendFormat:@"\t\t<length>%@</length>\n", [t length]];
     [xml appendFormat:@"\t\t<project>%@</project>\n", [[t project] name]];
-    [xml appendFormat:@"\t\t<customer>%@</customer>\n", @"dummy"];
+    [xml appendFormat:@"\t\t<customer>%@</customer>\n", 
+     [t valueForKey:@"project.customer.name"]];
     [xml appendFormat:@"\t\t<description>%@</description>\n", [t desc]];
     [xml appendString:@"\t</task>\n"];
   }
@@ -568,66 +569,51 @@
                  returnCode:(int)returnCode
                 contextInfo:(void*)contextInfo {
   if ( returnCode == NSOKButton ) {
-    NSString *filename = [NSString stringWithString:[sheet filename]];
-    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hack:) userInfo:filename repeats:NO];
+    [sheet orderOut:self];
+    
+    NSString* currentDoc = [[self fileURL] path];
+    NSString* newDoc = [[[currentDoc lastPathComponent] 
+                         stringByDeletingPathExtension]
+                        stringByAppendingPathExtension:@"txt"];
+    NSString *xslFilename = [sheet filename];
+
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    [panel setCanSelectHiddenExtension:YES];
+    [panel beginSheetForDirectory:nil
+                             file:newDoc
+                   modalForWindow:mainWindow
+                    modalDelegate:self
+                   didEndSelector:@selector(xsltSavePanelDidEnd:returnCode:contextInfo:)
+                      contextInfo:xslFilename];
   }
 }
 
-// ----------------------------------------------------------------------
-
-- (void)hack:(NSTimer *)timer {
-  NSSavePanel *panel = [NSSavePanel savePanel];
-  [panel setCanSelectHiddenExtension:YES];
-  
-  NSString* currentDoc = [[self fileURL] path];
-  NSString* newDoc = [[[currentDoc lastPathComponent] 
-                       stringByDeletingPathExtension]
-                      stringByAppendingPathExtension:@"txt"];
-  
-  NSString *xslFilename = [[NSString stringWithString:[timer userInfo]] retain];
-  if (xslFilename) {
-    NSLog(@"xslFilename: %@", xslFilename);
-  } else {
-    NSLog(@"xslFilename: nil");
-  }
-  [panel beginSheetForDirectory:nil
-                           file:newDoc
-                 modalForWindow:mainWindow
-                  modalDelegate:self
-                 didEndSelector:@selector(xsltSavePanelDidEnd:returnCode:contextInfo:)
-                    contextInfo:xslFilename];
-}
 
 // ----------------------------------------------------------------------
+
 
 - (void)xsltSavePanelDidEnd:(NSOpenPanel *)sheet
                  returnCode:(int)returnCode
                 contextInfo:(void*)contextInfo {
   if ( returnCode == NSOKButton ) {
-    NSLog(@"processWithXslt");
     NSString *xml = [self xmlForTasks:[tasksController arrangedObjects]
                              fillDays:NO];
     
-    //NSLog(@"xml:\n%@", xml);
-    NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:xml options:0 error:NULL] autorelease];
-    //NSLog(@"doc: %@", doc);
+    NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:xml 
+                                                           options:0 
+                                                             error:NULL] 
+                          autorelease];
     NSString *xslFilename = (NSString *)contextInfo;
-    if (xslFilename) {
-      NSLog(@"xslFilename: %@", xslFilename);
-    } else {
-      NSLog(@"xslFilename: nil");
-    }
-    NSLog(@"xsl: %@", [NSString stringWithContentsOfFile:xslFilename
-                                                encoding:NSUTF8StringEncoding
-                                                   error:NULL]);
     NSData *xslt = [NSData dataWithContentsOfFile:xslFilename];
     id newDoc = [doc objectByApplyingXSLT:xslt arguments:nil error:NULL];
-    NSString *newString = [[[NSString alloc] initWithData:newDoc encoding:NSUTF8StringEncoding] autorelease];
-    NSLog(@"new doc:\n%@", newString);
-    [newString writeToFile:[sheet filename]
-               atomically:YES 
-                 encoding:NSUTF8StringEncoding
-                    error:NULL];
+    
+    NSString *output = [[[NSString alloc] initWithData:newDoc 
+                                              encoding:NSUTF8StringEncoding] 
+                        autorelease];
+    [output writeToFile:[sheet filename]
+             atomically:YES 
+               encoding:NSUTF8StringEncoding
+                  error:NULL];
   }
 }
 
