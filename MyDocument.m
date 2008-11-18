@@ -433,7 +433,7 @@
                       [formatter stringFromDate:[t startDate]],
                       [formatter stringFromDate:[t endDate]],
                       [t length],
-                      [[t project] name],
+                      [[t project] valueForKey:@"name"],
                       [t desc],
                       nil ];
     [output appendString:[parts componentsJoinedByString:@"\t"]];
@@ -497,15 +497,24 @@
     lastDate = [self dmyForDate:[t startDate]];
     
     [xml appendString:@"\t<task>\n"];
+    
     [xml appendFormat:@"\t\t<start>%@</start>\n", 
      [formatter stringFromDate:[t startDate]]];
+    
     [xml appendFormat:@"\t\t<end>%@</end>\n", 
      [formatter stringFromDate:[t endDate]]];
+    
     [xml appendFormat:@"\t\t<length>%@</length>\n", [t length]];
-    [xml appendFormat:@"\t\t<project>%@</project>\n", [[t project] name]];
+    
+    [xml appendFormat:@"\t\t<project>%@</project>\n", 
+     [[t project] valueForKey:@"name"]];
+    
+    NSManagedObject *customer = [[t project] valueForKey:@"customer"];
     [xml appendFormat:@"\t\t<customer>%@</customer>\n", 
-     [t valueForKey:@"project.customer.name"]];
+     [customer valueForKey:@"name"]];
+
     [xml appendFormat:@"\t\t<description>%@</description>\n", [t desc]];
+    
     [xml appendString:@"\t</task>\n"];
   }
   [xml appendString:@"</tasks>\n"];
