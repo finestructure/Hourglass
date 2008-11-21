@@ -68,11 +68,15 @@ def add_customer(window, name):
     row = customer_table(window).rows.last()
     update_text_field(row.text_fields[1], name)
 
-def add_project(window, name):
+def add_project(window, name, customer):
     select_project_group(window)
     click_add_project(window)
     row = project_table(window).rows.last()
     update_text_field(row.text_fields[1], name)
+    button = window.splitter_groups[1].pop_up_buttons[1]
+    button.click()
+    button.menus[1].menu_items[customer].click()
+    time.sleep(1)
 
 
 if __name__ == '__main__':
@@ -90,8 +94,12 @@ if __name__ == '__main__':
     add_customer(doc_window, 'Firm X')
     assert customer_table(doc_window).rows.count() == 3
 
-    add_project(doc_window, 'Job A')
-    assert project_table(doc_window).rows.count() == 1
+    add_project(doc_window, 'Job A', 'Company 3')
+    add_project(doc_window, 'Project M', 'Firm X')
+    add_project(doc_window, 'Big Contract', 'Customer D')
+    add_project(doc_window, 'Internal', 'Firm X')
+    add_project(doc_window, 'Proj B', 'Company 3')
+    assert project_table(doc_window).rows.count() == 5
     
     #filemenu.menu_items['New Task'].click()
 
