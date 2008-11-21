@@ -25,10 +25,25 @@ def select_customer_group(window):
     assert text_field.value() == "Customers"
     row.selected.set(True)
 
+def select_project_group(window):
+    split_group = window.splitter_groups[1]
+    scroll_area = split_group.scroll_areas[1]
+    table = scroll_area.tables[1]
+    row = table.rows[6]
+    text_field = row.text_fields[1]
+    assert text_field.value() == "Projects"
+    row.selected.set(True)
+
 def click_add_customer(window):
     split_group = window.splitter_groups[1]
     button = split_group.buttons[1]
     #assert button.title() == 'Add customer'
+    button.click()
+
+def click_add_project(window):
+    split_group = window.splitter_groups[1]
+    button = split_group.buttons[1]
+    #assert button.title() == 'Add project'
     button.click()
 
 def customer_table(window):
@@ -36,34 +51,48 @@ def customer_table(window):
     scroll_area = split_group.scroll_areas[3]
     return scroll_area.tables[1]
 
-def edit_customer(window, index, value):
-    row = customer_table(window).rows[index]
-    text_field = row.text_fields[1]
-    text_field.focused.set(True)
-    #text_field.value.set(value)
-    #time.sleep(1)
+def project_table(window):
+    split_group = window.splitter_groups[1]
+    scroll_area = split_group.scroll_areas[3]
+    return scroll_area.tables[1]
+
+def update_text_field(field, value):
+    field.focused.set(True)
     sysevents.keystroke(value)
     sysevents.key_code(36)
-    #text_field.focused.set(False)
-    #text_field.confirm()
-    
-    assert text_field.value() == value
+    assert field.value() == value
+
+def add_customer(window, name):
+    select_customer_group(window)
+    click_add_customer(window)
+    row = customer_table(window).rows.last()
+    update_text_field(row.text_fields[1], name)
+
+def add_project(window, name):
+    select_project_group(window)
+    click_add_project(window)
+    row = project_table(window).rows.last()
+    update_text_field(row.text_fields[1], name)
+
 
 if __name__ == '__main__':
     close_all_windows()
     assert len(hg.windows()) == 0
     
     click_new_document()
+        
+    doc_window = hg.windows[1]
+    assert doc_window.title() == 'Untitled'
+    
+    
+    add_customer(doc_window, 'Customer D')
+    add_customer(doc_window, 'Company 3')
+    add_customer(doc_window, 'Firm X')
+    assert customer_table(doc_window).rows.count() == 3
+
+    add_project(doc_window, 'Job A')
+    assert project_table(doc_window).rows.count() == 1
     
     #filemenu.menu_items['New Task'].click()
-    
-    win = hg.windows[1]
-    assert win.title() == 'Untitled'
-    
-    select_customer_group(win)
-    click_add_customer(win)
-    
-    assert len(customer_table(win).rows()) == 1
-    
-    edit_customer(win, 1, 'Test Customer A')
+
     
