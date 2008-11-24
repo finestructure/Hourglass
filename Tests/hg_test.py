@@ -2,15 +2,12 @@ from appscript import *
 import time
 
 sysevents = app('System Events')
-
 hg = sysevents.processes['Hourglass']
-#hg = app('Hourglass')
-#hg.activate()
 
-def close_window():
-    menubar = hg.menu_bars[1]
-    menubar.menus['File'].menu_items['Close'].click()
+ref = hg.windows['Untitled'].splitter_groups[1] \
+          .scroll_areas[3].tables[1].rows[1].text_fields[1]
 
-loginwindow = sysevents.processes['loginwindow']
-for w in hg.windows():
-    print w.title()
+s = '<string>'
+ref.value.set(s)
+t = ref.value()
+print (s, t, s == t)
