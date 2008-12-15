@@ -59,7 +59,7 @@ def project_table(window):
 def update_text_field(field, value):
     field.focused.set(True)
     sysevents.keystroke(value)
-    sysevents.key_code(36)
+    field.confirm()
     assert field.value() == value
 
 def add_customer(window, name):
